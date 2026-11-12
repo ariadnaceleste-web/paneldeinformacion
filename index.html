@@ -1,0 +1,1112 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>Funciones del Rector</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
+</style>
+</head>
+<body>
+<style>
+/* Layout: menú vertical ocultable a la izquierda; contenido con cabecera y progreso; en Funciones, rejilla de verbos y panel de detalle fijo (hoja completa en móvil). */
+:root{
+  --bg:#EFF3F5; --surface:#FFFFFF; --surface-2:#E4EBEE; --ink:#0F1F2B; --ink-2:#4A5C69; --line:#CBD6DC;
+  --accent:#0A7766; --accent-ink:#FFFFFF; --accent-soft:#D5EEE8; --gold:#F3C74A; --gold-ink:#3A2B00;
+  --good:#1B8A4B; --bad:#C23B3B;
+  --c-dir:#D4E5FF; --c-aca:#E4DAFF; --c-adm:#FFE2C8; --c-com:#CFF1E0;
+  --rep-s:85%; --rep-l:89%; --rep-bl:42%;
+  --f-display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif; --f-body:'Figtree','Segoe UI',system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0B1419; --surface:#131F27; --surface-2:#1B2A34; --ink:#E7F0F3; --ink-2:#9DB1BC; --line:#2A3C47;
+  --accent:#3DCDB4; --accent-ink:#052620; --accent-soft:#12352F; --gold:#F0C54B; --gold-ink:#2E2300;
+  --good:#52C77F; --bad:#EE7A7A; --c-dir:#1C3556; --c-aca:#2D2652; --c-adm:#4B3220; --c-com:#18412F; --rep-s:42%; --rep-l:21%; --rep-bl:64%; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0B1419; --surface:#131F27; --surface-2:#1B2A34; --ink:#E7F0F3; --ink-2:#9DB1BC; --line:#2A3C47;
+  --accent:#3DCDB4; --accent-ink:#052620; --accent-soft:#12352F; --gold:#F0C54B; --gold-ink:#2E2300;
+  --good:#52C77F; --bad:#EE7A7A; --c-dir:#1C3556; --c-aca:#2D2652; --c-adm:#4B3220; --c-com:#18412F; --rep-s:42%; --rep-l:21%; --rep-bl:64%; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:radial-gradient(900px 420px at 90% -8%,var(--accent-soft),transparent 65%),var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;
+  padding-block:20px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.shell{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:240px minmax(0,1fr);gap:26px;align-items:start}
+.shell.collapsed{grid-template-columns:minmax(0,1fr)}
+.shell.collapsed .side{display:none}
+.wrap{min-width:0;display:flex;flex-direction:column;gap:20px}
+.side{position:sticky;top:14px;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:24px;padding:16px;display:flex;flex-direction:column;gap:16px;box-shadow:0 18px 40px -28px var(--ink)}
+.brand{display:flex;gap:12px;align-items:center;padding:4px 4px 12px;border-bottom:1px solid var(--line)}
+.brand b{display:block;font-family:var(--f-display);font-size:17px;line-height:1.1}
+.brand small{color:var(--ink-2);font-size:12px}
+.logo{width:40px;height:40px;border-radius:13px;background:linear-gradient(135deg,var(--accent),var(--gold));color:var(--accent-ink);display:grid;place-items:center;font-family:var(--f-display);font-weight:800;font-size:20px;flex:none}
+.hide{border:1px dashed var(--line);background:none;border-radius:12px;padding:9px;color:var(--ink-2);font-weight:600;font-size:13px}
+.hide:hover{border-color:var(--accent);color:var(--ink)}
+.menu{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:7px 14px;font-weight:700;font-size:13px;margin-bottom:12px}
+.menu:hover{border-color:var(--accent)}
+.scrim{display:none}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0}
+p{margin:0}
+
+/* cabecera */
+.head{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:flex-end;justify-content:space-between}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:700}
+h1{font-size:clamp(32px,5vw,52px);font-weight:800;line-height:1;letter-spacing:-.02em;margin-top:6px}
+.sub{color:var(--ink-2);max-width:60ch;margin-top:8px}
+.prog{min-width:220px;display:flex;flex-direction:column;gap:6px}
+.prog b{font-family:var(--f-display);font-size:28px;line-height:1}
+.bar{height:8px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .4s}
+.prog small{color:var(--ink-2)}
+.reset{align-self:flex-start;background:none;border:0;color:var(--ink-2);text-decoration:underline;padding:0;font-size:12px}
+
+/* pestañas verticales */
+.tabs{display:flex;flex-direction:column;gap:4px}
+.tab{text-align:left;border:0;background:none;border-radius:14px;padding:12px 14px;font-weight:600;color:var(--ink-2);display:flex;align-items:center;gap:12px;transition:.15s}
+.tab::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--line);flex:none;transition:.15s}
+.tab:hover{background:var(--surface-2);color:var(--ink)}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+.tab[aria-selected="true"]::before{background:var(--gold);box-shadow:0 0 0 4px color-mix(in srgb,var(--gold) 30%,transparent)}
+.view[hidden]{display:none}
+
+/* funciones: lista a la izquierda, tarjeta con pestañas a la derecha */
+.fx{display:grid;grid-template-columns:300px minmax(0,1fr);gap:20px;align-items:start}
+.flist{position:sticky;top:14px;background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:16px;display:flex;flex-direction:column;gap:10px;max-height:calc(100vh - 28px);min-width:0}
+.flist h3{font-size:19px}
+.search{width:100%;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);border-radius:14px;padding:10px 14px;font:inherit}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:6px 12px;font-size:12.5px;font-weight:700;color:var(--ink)}
+.chip:hover{border-color:var(--accent)}
+.chip[aria-pressed="true"]{background:var(--c-dir);border-color:var(--accent)}
+.hint{font-size:12px;color:var(--ink-2)}
+.items{display:flex;flex-direction:column;gap:8px;overflow:auto;padding:3px;margin:-3px;min-height:0}
+.fi{--c:var(--surface-2);display:flex;align-items:center;gap:12px;text-align:left;width:100%;border:2px solid transparent;border-radius:18px;padding:10px 14px;background:var(--c);color:var(--ink);transition:transform .15s,border-color .15s,box-shadow .15s;flex:none}
+.fi[data-a="dir"]{--c:var(--c-dir)}.fi[data-a="aca"]{--c:var(--c-aca)}.fi[data-a="adm"]{--c:var(--c-adm)}.fi[data-a="com"]{--c:var(--c-com)}
+.fi:hover{transform:translateX(3px)}
+.fi .num{font-size:12px;font-weight:700;opacity:.65;min-width:20px;font-variant-numeric:tabular-nums}
+.fi .tx{display:flex;flex-direction:column;min-width:0;flex:1}
+.fi b{font-family:var(--f-display);font-size:18px;line-height:1.15}
+.fi small{font-size:12px;opacity:.72;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fi .ck{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:12px;color:#fff;background:transparent;flex:none}
+.fi.done .ck{background:var(--good)}
+.fi[aria-current="true"]{background:var(--surface);border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 22%,transparent)}
+.empty{padding:30px;text-align:center;color:var(--ink-2);border:1px dashed var(--line);border-radius:18px}
+
+.fcard{--c:var(--c-dir);background:var(--surface);border:1px solid var(--line);border-radius:28px;overflow:hidden;min-width:0;box-shadow:0 26px 60px -42px var(--ink)}
+.fcard[data-a="aca"]{--c:var(--c-aca)}.fcard[data-a="adm"]{--c:var(--c-adm)}.fcard[data-a="com"]{--c:var(--c-com)}
+.fband{background:var(--c);padding:clamp(18px,3vw,30px);display:flex;flex-wrap:wrap;gap:14px 28px;align-items:center;justify-content:space-between}
+.fband .lbl{display:block;margin-bottom:4px}
+.vv{font-family:var(--f-display);font-weight:800;font-size:clamp(40px,7vw,78px);line-height:1;letter-spacing:-.03em;overflow-wrap:anywhere}
+.mt{display:flex;flex-direction:column;gap:6px;flex:1 1 260px;max-width:48ch}
+.mt h2{font-size:clamp(18px,2.4vw,26px);font-weight:800}
+.mt p{font-size:13px;color:var(--ink-2)}
+.fnav{display:flex;gap:8px}
+.fnav .ib{border:1px solid var(--line);background:var(--surface);border-radius:99px;width:42px;height:42px;display:grid;place-items:center;font-size:18px}
+.fnav .ib:hover{border-color:var(--accent)}
+.seg{display:flex;gap:4px;padding:0 clamp(18px,3vw,30px);border-bottom:1px solid var(--line);overflow-x:auto}
+.sg{border:0;background:none;padding:14px 14px 12px;font-weight:700;color:var(--ink-2);border-bottom:3px solid transparent;margin-bottom:-1px;white-space:nowrap}
+.sg:hover{color:var(--ink)}
+.sg[aria-selected="true"]{color:var(--ink);border-color:var(--accent)}
+.sg:disabled{opacity:.4;cursor:not-allowed}
+.sg .ct{background:var(--surface-2);border-radius:99px;font-size:11px;padding:1px 8px;margin-left:6px}
+.pane{padding:clamp(18px,3vw,30px);display:flex;flex-direction:column;gap:22px}
+.lbl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--ink-2)}
+.vrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.vchip{background:var(--gold);color:var(--gold-ink);font-weight:800;border-radius:99px;padding:6px 16px;font-size:15px}
+.mandate{font-size:clamp(17px,2.2vw,20px);line-height:1.75;background:var(--surface-2);border-radius:22px;padding:22px 26px}
+mark{background:var(--gold);color:var(--gold-ink);border-radius:6px;padding:1px 6px;font-weight:800}
+.teaser{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;background:var(--accent-soft);border-radius:18px;padding:14px 18px}
+.teaser b{font-family:var(--f-display);font-size:16px}
+.actions{display:flex;flex-wrap:wrap;gap:10px}
+.primary{background:var(--accent);color:var(--accent-ink);border:0;border-radius:99px;padding:12px 22px;font-weight:800}
+.primary[aria-pressed="true"]{background:var(--good);color:#fff}
+.ghost{background:var(--surface-2);border:1px solid var(--line);border-radius:99px;padding:11px 20px;font-weight:700}
+.ghost:hover{border-color:var(--accent)}
+
+/* normas: filas compactas desplegables */
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;color:var(--ink-2)}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:5px;vertical-align:-2px;margin-right:6px;border:1px solid var(--line);background:var(--surface-2)}
+.legend i.r{background:hsl(210 var(--rep-s) var(--rep-l));border-color:hsl(210 60% var(--rep-bl))}
+.gh{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);font-family:var(--f-body);font-weight:800;margin:6px 0 -6px}
+.nlist{display:flex;flex-direction:column;gap:8px}
+details.nr{--h:210;border:1px solid var(--line);border-radius:16px;background:var(--surface-2);overflow:hidden;min-width:0}
+details.nr.rep{background:hsl(var(--h) var(--rep-s) var(--rep-l));border-color:hsl(var(--h) 60% var(--rep-bl));box-shadow:inset 6px 0 0 hsl(var(--h) 70% var(--rep-bl))}
+details.nr summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:12px 16px}
+details.nr summary::-webkit-details-marker{display:none}
+details.nr summary::after{content:"+";font-size:20px;color:var(--accent);margin-left:auto;flex:none;transition:transform .2s}
+details.nr[open] summary::after{transform:rotate(45deg)}
+.nt{display:flex;flex-direction:column;min-width:0;flex:1}
+.nt b{font-family:var(--f-display);font-size:16px;line-height:1.25}
+.nt small{color:var(--ink-2);font-size:12.5px}
+.nb{flex:none;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;background:var(--surface);border:1px solid var(--line);border-radius:99px;padding:3px 10px}
+.nrb{flex:none;font-size:11px;font-weight:800;border-radius:99px;padding:3px 10px;background:hsl(var(--h) 70% var(--rep-bl));color:#fff}
+.nbody{padding:0 16px 16px;display:flex;flex-direction:column;gap:10px;font-size:14.5px}
+.why{background:var(--surface);border-radius:12px;padding:10px 12px}
+.why b{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin-bottom:2px}
+.again{display:flex;flex-direction:column;gap:6px}
+.again .row2{background:var(--surface);border-radius:12px;padding:8px 10px;font-size:13.5px}
+.go{border:0;background:hsl(var(--h,210) 70% var(--rep-bl));color:#fff;font-weight:800;font-size:12px;border-radius:99px;padding:3px 10px;margin-right:6px}
+details.map{background:var(--surface-2);border-radius:18px;padding:14px 18px}
+details.map summary{cursor:pointer;font-weight:800;font-family:var(--f-display);font-size:16px}
+.maprow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:10px 0;border-top:1px solid var(--line);margin-top:10px}
+.maprow .nm{flex:1 1 220px;font-weight:700;font-size:14px;padding:4px 10px;border-radius:10px;background:hsl(var(--h) var(--rep-s) var(--rep-l));border:1px solid hsl(var(--h) 60% var(--rep-bl))}
+.note{font-size:12.5px;color:var(--ink-2)}
+/* protocolo */
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;counter-reset:st}
+.steps li{counter-increment:st;display:flex;gap:14px;align-items:flex-start;background:var(--surface-2);border-radius:16px;padding:14px 16px}
+.steps li::before{content:counter(st);flex:none;width:30px;height:30px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-weight:800;font-size:14px}
+/* competencias: base legal */
+.legal{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px;color:var(--ink)}
+.lchips{display:flex;flex-wrap:wrap;gap:6px}
+.lc{--h:210;border:1px solid var(--line);background:var(--surface-2);border-radius:99px;padding:5px 12px;font-size:12.5px;font-weight:700;color:var(--ink)}
+.lc.rep{background:hsl(var(--h) var(--rep-s) var(--rep-l));border-color:hsl(var(--h) 60% var(--rep-bl))}
+.lc[aria-expanded="true"]{outline:2px solid var(--accent)}
+.lf{border:0;background:var(--ink);color:var(--bg);border-radius:99px;padding:5px 12px;font-size:12.5px;font-weight:700}
+.where[hidden]{display:none}
+.where{background:var(--accent-soft);border-radius:14px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;font-size:13px}
+
+
+/* casos y sentencias */
+.ccard{background:var(--surface);border:1px solid var(--line);border-radius:28px;overflow:hidden;box-shadow:0 26px 60px -42px var(--ink);margin-top:6px}
+.cband{background:var(--c-dir);padding:clamp(18px,3vw,30px);display:flex;flex-direction:column;gap:6px}
+.cband h2{font-size:clamp(22px,3.4vw,34px);font-weight:800}
+.phases{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;counter-reset:ph}
+.phases>li{counter-increment:ph;display:grid;grid-template-columns:34px minmax(0,1fr);gap:14px;background:var(--surface-2);border-radius:18px;padding:14px 16px}
+.phases>li::before{content:counter(ph);width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-weight:800;font-size:14px}
+.phh{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:6px}
+.phh b{font-family:var(--f-display);font-size:17px}
+.tm{background:var(--gold);color:var(--gold-ink);font-weight:800;font-size:12px;border-radius:99px;padding:3px 12px}
+.phases ul{margin:0;padding-left:18px;display:grid;gap:4px;font-size:14.5px}
+.lc.plain{cursor:default;color:var(--ink-2)}
+.ctools{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;align-items:start}
+.ctools ul,.ctools ol{margin:0;padding-left:18px;display:grid;gap:4px}
+.dir{display:grid;gap:6px;list-style:none;padding:0!important}
+.dir li{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.dir b{font-family:var(--f-display);font-size:16px;min-width:56px}
+.stools{display:flex;flex-direction:column;gap:10px;margin-bottom:6px}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;align-items:start}
+.sc{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.sc .top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start;flex-wrap:wrap}
+.sc .no{font-family:var(--f-display);font-weight:800;font-size:26px;line-height:1}
+.tg{background:var(--accent-soft);color:var(--accent);border-radius:99px;font-size:11.5px;font-weight:800;padding:3px 10px}
+.vf{font-size:11px;font-weight:800;border-radius:99px;padding:3px 10px;background:var(--good);color:#fff}
+.vf.no{background:var(--gold);color:var(--gold-ink)}
+.sc h3{font-size:16px;line-height:1.25}
+.sc p{margin:0;font-size:14.5px}
+.sc .foot{display:flex;flex-wrap:wrap;gap:6px;align-items:center;border-top:1px solid var(--line);padding-top:10px}
+.sc .foot .lbl{margin-right:4px}
+.cl{border:0;background:var(--ink);color:var(--bg);border-radius:99px;padding:4px 10px;font-size:12px;font-weight:700}
+.ext{font-size:12.5px;font-weight:700;color:var(--accent)}
+
+
+
+/* tarjetas que se voltean */
+.flip{perspective:1200px;cursor:pointer;border-radius:22px;outline-offset:3px}
+.fl{display:grid;transition:transform .55s cubic-bezier(.3,.7,.2,1);transform-style:preserve-3d}
+.flip.on .fl{transform:rotateY(180deg)}
+.fl>.ff,.fl>.fb{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.fl>.fb{transform:rotateY(180deg);background:var(--surface-2)}
+.fb h4{margin:6px 0 0;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.fb p,.fb ul{margin:0;font-size:14.5px}
+.fb ul{padding-left:18px;display:grid;gap:3px}
+.fb .ver{border-left:4px solid var(--accent);padding-left:10px}
+.flip .tapm{margin-left:auto;font-size:12px;color:var(--ink-2);font-weight:700}
+@media (prefers-reduced-motion:reduce){.fl{transition:none}}
+.mxt{width:100%;border-collapse:collapse;font-size:14.5px}
+.mxt td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.mxt td:first-child{width:40%}
+.mxs{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:22px}
+
+.flip .top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start;flex-wrap:wrap}.flip .no{font-family:var(--f-display);font-weight:800;font-size:26px;line-height:1}.flip .foot{display:flex;flex-wrap:wrap;gap:6px;align-items:center;border-top:1px solid var(--line);padding-top:10px;margin-top:auto}.flip .foot .lbl{margin-right:2px}
+
+/* normativa moderna */
+.nv{display:grid;grid-template-columns:minmax(250px,330px) minmax(0,1fr);gap:16px;align-items:start}
+.nl{display:flex;flex-direction:column;gap:6px;max-height:72vh;overflow:auto;padding-right:4px}
+.ni{text-align:left;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:16px;padding:10px 12px;display:grid;gap:2px;border-left:6px solid hsl(var(--gh) 55% 45%);cursor:pointer;min-width:0}
+.ni b{font-size:15px;line-height:1.25}.ni span{font-size:12.5px;color:var(--ink-2)}
+.ni[aria-current=true]{background:var(--accent-soft);border-color:var(--accent)}
+.ndet{background:var(--surface);border:1px solid var(--line);border-radius:26px;overflow:hidden;box-shadow:0 26px 60px -44px var(--ink);min-width:0}
+.nband{background:hsl(var(--gh) 45% 27%);color:#fff;padding:20px 22px;display:grid;gap:6px}
+.nband .bd{justify-self:start;background:rgba(255,255,255,.18);border-radius:99px;font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:3px 12px}
+.nband h3{font-size:clamp(22px,3vw,30px);line-height:1.1;font-weight:800}
+.nband p{margin:0;opacity:.9;font-size:14.5px}
+.nbody{padding:18px 22px;display:grid;gap:14px}
+.nbody h4{margin:0;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.nbody p{margin:0}.nbody ul,.nbody ol{margin:0;padding-left:20px;display:grid;gap:4px}
+.use{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;align-items:start;background:var(--surface-2);border-radius:16px;padding:10px 12px}
+.use .cl{grid-row:span 1}
+.use span{font-size:14px}
+.ng{font-family:var(--f-display);font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);margin:10px 0 2px}
+@media (max-width:900px){.nv{grid-template-columns:1fr}.nl{max-height:250px}}
+/* matriz */
+.mxg{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.mq{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:16px;display:grid;gap:10px;align-content:start;border-top:6px solid hsl(var(--gh) 55% 45%)}
+.mq h3{font-size:16px;line-height:1.25}
+.act{justify-self:start;border-radius:99px;font-size:12px;font-weight:800;padding:3px 12px;background:hsl(var(--gh) 45% 28%);color:#fff}
+.mq .hint{margin:0}
+.yn{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-top:14px}
+.yn>article{border-radius:22px;padding:16px;border:1px solid var(--line);background:var(--surface);display:grid;gap:8px;align-content:start}
+.yn ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.yn li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:8px;font-size:14.5px}
+.yn li::before{content:'✓';font-weight:800;color:var(--good)}
+.yn .no li::before{content:'✕';color:var(--bad)}
+.yn .lg li::before{content:'•';color:var(--accent)}
+/* sentencias modernas */
+.flip{height:350px}
+.fl{height:100%}
+.fl>.ff,.fl>.fb{overflow:hidden}
+.fl>.fb{overflow:auto}
+.fl>.ff{border-top:6px solid hsl(var(--th) 55% 45%);padding-top:12px}
+.sy{display:flex;align-items:baseline;gap:8px}
+.sy .sn{font-family:var(--f-display);font-weight:800;font-size:34px;line-height:1}
+.sy .sa{font-size:15px;font-weight:700;color:var(--ink-2)}
+.clamp{display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+.vd{background:hsl(var(--th) 45% 27%);color:#fff;border-radius:14px;padding:10px 12px;font-size:14.5px}
+.vd b{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.8;margin-bottom:3px}
+
+
+.secthead>.ghost{align-self:flex-start;justify-self:start;width:auto}
+/* camino paso a paso */
+.camino{list-style:none;margin:0;padding:0;display:grid}
+.camino>li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;position:relative;padding-bottom:14px}
+.camino>li::before{content:'';position:absolute;left:20px;top:46px;bottom:2px;width:4px;border-radius:2px;background:linear-gradient(var(--accent),var(--accent-soft))}
+.camino>li:last-child{padding-bottom:0}.camino>li:last-child::before{display:none}
+.camino .nd{width:44px;height:44px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-weight:800;font-size:18px;box-shadow:0 0 0 5px var(--accent-soft)}
+.camino .q .nd{background:var(--gold);color:var(--gold-ink);border-radius:14px;box-shadow:0 0 0 5px color-mix(in srgb,var(--gold) 30%,transparent)}
+.camino .end .nd{background:var(--good);color:#fff;box-shadow:0 0 0 5px color-mix(in srgb,var(--good) 25%,transparent)}
+.camino .stop .nd{background:var(--bad);color:#fff;box-shadow:0 0 0 5px color-mix(in srgb,var(--bad) 25%,transparent)}
+.camino .cd{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:12px 14px;display:grid;gap:8px;align-content:start;min-width:0}
+.camino .q .cd{border-color:var(--gold)}
+.camino .stop .cd{border-color:var(--bad)}
+.camino h4{margin:0;font-family:var(--f-display);font-size:17px;line-height:1.2}
+.camino p{margin:0;font-size:14.5px}
+.camino .br{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+.camino .br>div{background:var(--surface-2);border-radius:12px;padding:8px 10px;font-size:14px;border-left:4px solid var(--good)}
+.camino .br>.no{border-left-color:var(--bad)}
+.camino .br b{display:block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px}
+.camino .tags{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.camino .tags .lbl{margin-right:2px}
+.sq{border:1px solid var(--line);background:var(--surface-2);color:var(--ink);border-radius:99px;padding:3px 10px;font-size:12px;font-weight:700;cursor:pointer}
+.sq:hover{border-color:var(--accent)}
+.avisos{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin-top:14px}
+.avisos>div{border-radius:16px;padding:12px 14px;font-size:14.5px;background:var(--surface);border:1px solid var(--line)}
+.avisos b{display:block;font-family:var(--f-display);margin-bottom:4px}
+
+/* rutas */
+.rmap{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.rmap>div{background:var(--surface-2);border-radius:18px;padding:14px;border-top:5px solid var(--accent)}
+.rmap b{font-family:var(--f-display);font-size:17px;display:block;margin-bottom:4px}
+.rmap p{margin:0;font-size:14px}
+.tipo{background:var(--surface);border:1px solid var(--line);border-radius:24px;overflow:hidden;margin-top:12px}
+.tipo>header{padding:14px 18px;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:baseline;background:var(--surface-2)}
+.tipo>header h3{font-size:19px}
+.tipo .in{padding:14px 18px;display:grid;gap:10px}
+.rr{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.rcase{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.rcase .tm{font-size:11px}
+.rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px;align-items:start}
+.nbox{display:grid;gap:10px}
+.nbox h4{margin:0;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.nbox ul,.nbox ol{margin:0;padding-left:18px;display:grid;gap:3px;font-size:14.5px}
+details.nc{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:14px 16px}
+details.nc summary{cursor:pointer;display:grid;gap:3px;list-style:none}
+details.nc summary b{font-family:var(--f-display);font-size:20px}
+details.nc summary i{font-style:normal;font-size:13.5px;color:var(--ink-2)}
+details.nc[open]{grid-column:1/-1}
+details.nc .nbox{margin-top:12px}
+
+/* competencias y procesos */
+.secthead{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
+.secthead h2{font-size:clamp(24px,3.4vw,32px);font-weight:800}
+.secthead p{color:var(--ink-2);max-width:70ch}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;align-items:start}
+.gap-lg{display:flex;flex-direction:column;gap:30px}
+details.d{background:var(--surface);border:1px solid var(--line);border-radius:20px;overflow:hidden;min-width:0}
+details.d summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-family:var(--f-display);font-weight:700;font-size:17px}
+details.d summary::-webkit-details-marker{display:none}
+details.d summary::after{content:"+";font-size:22px;color:var(--accent);transition:transform .2s;flex:none}
+details.d[open] summary::after{transform:rotate(45deg)}
+details.d[open]{border-color:var(--accent)}
+details.d .in{padding:0 16px 16px;color:var(--ink-2)}
+.vpair{display:flex;gap:6px;flex-wrap:wrap}
+.vpair span{background:var(--gold);color:var(--gold-ink);border-radius:8px;padding:2px 9px;font-size:14px;font-weight:700}
+.duo{background:var(--ink);color:var(--bg);border-radius:24px;padding:24px;display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center}
+.duo h3{font-size:clamp(28px,5vw,44px);font-weight:800}
+.duo p{opacity:.85;flex:1 1 280px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:80}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+@media (max-width:900px){
+  .shell,.shell.collapsed{grid-template-columns:minmax(0,1fr)}
+  .shell.collapsed .side{display:flex}
+  .side{position:fixed;z-index:60;top:0;bottom:0;left:0;width:min(290px,86vw);border-radius:0 24px 24px 0;padding-top:calc(16px + env(safe-area-inset-top,0px));padding-left:max(16px,env(safe-area-inset-left,0px));transform:translateX(-110%);visibility:hidden;transition:transform .3s,visibility .3s;background:var(--surface)}
+  .shell.drawer .side{transform:none;visibility:visible}
+  .shell.drawer~.scrim{display:block;position:fixed;inset:0;z-index:55;background:rgba(0,0,0,.45)}
+  .fx{grid-template-columns:minmax(0,1fr)}
+  .flist{position:static;max-height:none}
+  .items{flex-direction:row;padding-bottom:8px}
+  .fi{width:200px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="shell" id="shell">
+<aside class="side" id="side" aria-label="Menú de secciones">
+  <div class="brand"><span class="logo" aria-hidden="true">R</span><div><b>Panel del Rector</b><small>Resolución 003842</small></div></div>
+  <nav class="tabs" role="tablist" aria-label="Secciones del manual" id="tabs"></nav>
+  <button class="hide" id="hideSide" type="button">‹ Ocultar menú</button>
+</aside>
+<div class="wrap">
+  <header class="head">
+    <div>
+      <button class="menu" id="menuBtn" type="button" aria-controls="side" aria-expanded="true"><span aria-hidden="true">☰</span> Menú</button>
+      <div class="eyebrow">Resolución 003842 · Anexo técnico · Clase 13</div>
+      <h1>Funciones del Rector</h1>
+      <p class="sub">Elige una sección en el menú. En Funciones, toca un verbo para ver el mandato, la normativa, las sentencias y los protocolos.</p>
+    </div>
+    <div class="prog" aria-live="polite">
+      <b id="progNum">0 / 25</b>
+      <div class="bar"><i id="progBar"></i></div>
+      <small>funciones dominadas</small>
+      <button class="reset" id="resetBtn" type="button">Reiniciar progreso</button>
+    </div>
+  </header>
+
+  <!-- COMPETENCIAS -->
+  <section class="view" id="v-competencias" role="tabpanel" hidden>
+    <div class="gap-lg">
+      <div>
+        <div class="secthead"><h2>Competencias funcionales</h2><p>Cuatro áreas de gestión, conforme a las Guías 31 y 34 del MEN. Cada una se apoya en normas: toca una norma para ver en qué funciones aparece, o ve directo a una función.</p><button type="button" class="ghost" data-rt="atencion" style="margin-top:10px">Ver rutas y protocolos →</button></div>
+        <div class="cols">
+          <details class="d" open data-c="dir"><summary>Gestión Directiva</summary><div class="in">Planeación, Organización, Ejecución y Direccionamiento estratégico del establecimiento.</div></details>
+          <details class="d" data-c="aca"><summary>Gestión Académica</summary><div class="in">Pedagogía, Didáctica, Innovación educativa y Direccionamiento académico e investigativo.</div></details>
+          <details class="d" data-c="adm"><summary>Gestión Administrativa</summary><div class="in">Administración de recursos financieros y físicos, y Gestión del talento humano asignado.</div></details>
+          <details class="d" data-c="com"><summary>Gestión Comunitaria</summary><div class="in">Comunicación institucional, Convivencia escolar e Interacción con la comunidad y el entorno social.</div></details>
+        </div>
+      </div>
+      <div>
+        <div class="secthead"><h2>Competencias comportamentales</h2><p>Actitudes, valores, motivaciones e intereses requeridos para la función directiva. Son insumo principal en las pruebas psicotécnicas del concurso docente.</p></div>
+        <div class="cols">
+          <details class="d" data-c="lid"><summary>Liderazgo</summary><div class="in">Capacidad para guiar, inspirar y movilizar a la comunidad educativa hacia el logro de metas compartidas.</div></details>
+          <details class="d" data-c="cor"><summary>Comunicación y Relaciones Interpersonales</summary><div class="in">Habilidad para mantener canales de diálogo transparentes y empáticos.</div></details>
+          <details class="d" data-c="equ"><summary>Trabajo en Equipo y Negociación</summary><div class="in">Capacidad para concertar, resolver conflictos de forma pacífica y construir consensos.</div></details>
+          <details class="d" data-c="soc"><summary>Compromiso Social e Institucional</summary><div class="in">Identificación con los valores del servicio público educativo y el bienestar comunitario.</div></details>
+          <details class="d" data-c="ini"><summary>Iniciativa y Orientación al Logro</summary><div class="in">Proactividad enfocada en la alta calidad, la eficiencia y los resultados del servicio educativo.</div></details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUNCIONES -->
+  <section class="view" id="v-funciones" role="tabpanel" hidden>
+    <div class="fx">
+      <aside class="flist" aria-label="Lista de funciones">
+        <h3>Funciones</h3>
+        <input class="search" id="q" type="search" placeholder="Buscar verbo o palabra" aria-label="Buscar función">
+        <div class="chips" id="areas" role="group" aria-label="Filtrar por área de gestión"></div>
+        <p class="hint" id="areaHint"></p>
+        <div class="items" id="items"></div>
+      </aside>
+      <article class="fcard" id="fcard" aria-live="polite"></article>
+    </div>
+  </section>
+
+  <!-- RUTAS -->
+  <section class="view" id="v-rutas" role="tabpanel" hidden>
+    <div class="secthead"><button type="button" class="ghost" data-view="casos" style="margin-bottom:8px">← Casos</button><h2>Rutas</h2><p>Las rutas y protocolos que investigamos, en orden de uso. Cada paso remite a la función donde está su norma.</p></div>
+    <div class="chips" id="rchips" role="group" aria-label="Elegir ruta"></div>
+    <div id="rbody"></div>
+  </section>
+
+  <!-- NORMATIVA -->
+  <section class="view" id="v-normativa" role="tabpanel" hidden>
+    <div class="secthead"><h2>Normativa</h2><p>Todo lo que sostiene el cargo y el manual de convivencia, ordenado por jerarquía. Elige una norma y mira qué dice, cómo se actúa y dónde se usa.</p></div>
+    <div class="chips" id="nchips" role="group" aria-label="Tipo de norma"></div>
+    <div class="stools"><input class="search" id="nq" type="search" placeholder="Buscar en todas las normas" aria-label="Buscar norma"></div>
+    <div id="nlist"></div>
+  </section>
+
+  <!-- CASOS -->
+  <section class="view" id="v-casos" role="tabpanel" hidden>
+    <div class="secthead"><h2>Casos de convivencia</h2><button type="button" class="ghost" data-view="rutas" style="margin-bottom:8px">Ver rutas y protocolos →</button><p>Qué hacer por fases ante cada situación. Las normas y sentencias se abren desde su catálogo y llevan a las funciones donde ya están explicadas, para no repetirlas aquí.</p></div>
+    <div class="chips" id="cchips" role="group" aria-label="Elegir caso"></div>
+    <article class="ccard" id="ccard" aria-live="polite"></article>
+  </section>
+
+  <!-- SENTENCIAS -->
+  <section class="view" id="v-sentencias" role="tabpanel" hidden>
+    <div class="secthead"><h2>Sentencias</h2><p>Toca una tarjeta para voltearla: al frente va la sentencia y al reverso qué pasó, qué decidió y qué hacer en el colegio.</p></div>
+    <div class="stools"><input class="search" id="sq" type="search" placeholder="Buscar por número o tema" aria-label="Buscar sentencia"><div class="chips" id="stags" role="group" aria-label="Filtrar por tema"></div></div>
+    <p class="hint" id="scount"></p>
+    <div class="sgrid" id="slist"></div>
+  </section>
+
+  <!-- MANUAL DE CONVIVENCIA -->
+  <section class="view" id="v-manual" role="tabpanel" hidden>
+    <div class="secthead"><h2>Manual de convivencia</h2></div>
+    <div id="manual-root"></div>
+  </section>
+</div>
+</div>
+<div class="scrim" id="scrim"></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const AREAS={dir:'Gestión Directiva',aca:'Gestión Académica',adm:'Gestión Administrativa',com:'Gestión Comunitaria'};
+// n, verbo inicial, otros verbos, título del Word, área sugerida, texto del mandato
+const F=[
+[1,'Liderar',[],'Liderar el PEI','dir','Liderar la construcción, modificación, actualización y ejecución del Proyecto Educativo Institucional (PEI) con la participación del Gobierno Escolar y la comunidad educativa.'],
+[2,'Orientar',['Articular'],'Orientar Equipos Docentes','aca','Orientar y articular el trabajo de los equipos docentes dentro de la institución para garantizar la unidad pedagógica.'],
+[3,'Establecer',[],'Cooperación Interinstitucional','dir','Establecer relaciones de cooperación e integración interinstitucional con entidades públicas, privadas y de la sociedad civil.'],
+[4,'Presidir',['Convocar'],'Presidir Consejos','dir','Presidir y convocar las sesiones del Consejo Directivo y del Consejo Académico del establecimiento educativo.'],
+[5,'Representar',[],'Representación Legal e Institucional','dir','Representar legal e institucionalmente al establecimiento educativo ante las autoridades educativas, administrativas y judiciales competentes.'],
+[6,'Formular',['Liderar','Ejecutar'],'Formular y Liderar el PAM','dir','Formular, liderar y ejecutar los Planes Anuales de Acción y el Plan de Mejoramiento Institucional (PAM).'],
+[7,'Dirigir',['Propender'],'Dirigir la Calidad del Servicio','dir','Dirigir la ejecución de la prestación del servicio educativo y propender de forma continua por la elevación de su calidad.'],
+[8,'Implementar',[],'Implementar Disposiciones Estatales','dir','Implementar las políticas, normas y disposiciones legales que expida el Estado para la organización y prestación del servicio educativo.'],
+[9,'Orientar',[],'Orientar el Plan de Estudios','aca','Orientar los procesos pedagógicos de la institución y el diseño e implementación del plan de estudios con la asistencia del Consejo Académico.'],
+[10,'Distribuir',[],'Distribuir Asignación Académica','aca','Distribuir las asignaciones académicas y demás actividades curriculares complementarias al personal directivo y docente según las normas vigentes.'],
+[11,'Proponer',[],'Proponer Capacitación Docente','aca','Proponer al personal docente y directivo que será apoyado para recibir capacitación formal y continua, utilizando criterios técnicos y de selección objetivos (no a discreción individual).'],
+[12,'Identificar',['Fortalecer','Articular'],'Fomentar el Gobierno Escolar','dir','Identificar y fortalecer la participación democrática del Gobierno Escolar articulando el contexto institucional con las tendencias educativas.'],
+[13,'Administrar',[],'Administrar el FSE','adm','Administrar el Fondo de Servicios Educativos (FSE) y los recursos financieros y bienes presupuestales asignados al establecimiento.'],
+[14,'Rendir',[],'Rendir Informes de Gestión','dir','Rendir informes periódicos sobre la gestión presupuestal, administrativa y académica al Consejo Directivo (mínimo cada seis meses).'],
+[15,'Administrar',[],'Administrar el Personal','adm','Administrar el personal docente, directivo docente y administrativo asignado a la institución educativa.'],
+[16,'Ejercer',[],'Control de Funciones','adm','Ejercer el control y seguimiento sobre el cumplimiento cabal de las funciones del personal a su cargo.'],
+[17,'Realizar',[],'Evaluación Anual de Desempeño','adm','Realizar la evaluación anual de desempeño laboral de los docentes y directivos docentes vinculados bajo el Decreto Ley 1278 de 2002.'],
+[18,'Ejercer',[],'Ejercer Función Disciplinaria','com','Ejercer las funciones disciplinarias atribuibles por ley, reglamentos y el Manual de Convivencia escolar.'],
+[19,'Establecer',['Mantener'],'Canales de Comunicación','com','Establecer y mantener canales de comunicación fluidos entre los diferentes estamentos de la comunidad educativa.'],
+[20,'Suministrar',[],'Suministrar Información Oficial','adm','Suministrar información oportuna, precisa y veraz según los requerimientos solicitados por la Secretaría de Educación Certificada.'],
+[21,'Promover',[],'Vínculo con la Comunidad','com','Promover actividades culturales, pedagógicas y sociales que vinculen el establecimiento con la comunidad local dentro del marco del PEI.'],
+[22,'Diseñar',['Promover'],'Acogida, Bienestar y Permanencia','com','Diseñar y promover procesos institucionales que garanticen la acogida, el bienestar y la permanencia de los estudiantes en el sistema educativo.'],
+[23,'Presentar',[],'Reconocimientos a Estudiantes','com','Presentar ante la Secretaría de Educación o estamentos competentes el otorgamiento de reconocimientos u honores a estudiantes según el Manual de Convivencia.'],
+[24,'Propender',[],'Mantenimiento de Infraestructura','adm','Propender por la conservación, mantenimiento y adecuada dotación de la infraestructura física y los recursos didácticos del establecimiento.'],
+[25,'Desempeñar',['Dinamizar'],'Primer Líder Pedagógico','dir','Desempeñar el rol de primer líder pedagógico y directivo, dinamizando la gestión y la cultura institucional hacia la excelencia.']
+].map(a=>({n:a[0],v:a[1],more:a[2],t:a[3],a:a[4],x:a[5]}));
+// formas que aparecen en el texto para resaltar
+const EXTRA={25:['dinamizando']};
+
+const $=s=>document.querySelector(s);
+let done=new Set(),cur=null,area='all',term='';
+try{done=new Set(JSON.parse(localStorage.getItem('rector-dominadas')||'[]'))}catch(e){}
+const save=()=>{try{localStorage.setItem('rector-dominadas',JSON.stringify([...done]))}catch(e){}};
+const esc=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+function hl(f){
+  const w=[f.v,...f.more,...(EXTRA[f.n]||[])].map(esc).join('|');
+  return f.x.replace(new RegExp('(?<![\\p{L}])('+w+')(?![\\p{L}])','giu'),'<mark>$1</mark>');
+}
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),1800)}
+
+/* menú vertical */
+const TABS=[['competencias','Competencias'],['funciones','Funciones (25)'],['normativa','Normativa'],['sentencias','Sentencias'],['manual','Manual de convivencia'],['casos','Casos'],['rutas','Rutas']];
+$('#tabs').innerHTML=TABS.map(t=>`<button class="tab" role="tab" data-t="${t[0]}" aria-selected="false">${t[1]}</button>`).join('');
+function show(id){
+  if(id==='procesos')id='rutas';
+  if(!TABS.some(t=>t[0]===id))id='competencias';
+  document.querySelectorAll('.tab').forEach(b=>b.setAttribute('aria-selected',b.dataset.t===id));
+  document.querySelectorAll('.view').forEach(v=>v.hidden=v.id!=='v-'+id);
+  if(location.hash.slice(1)!==id)history.replaceState(null,'','#'+id);
+}
+const shell=$('#shell'),mobile=()=>matchMedia('(max-width:900px)').matches;
+function toggleSide(force){
+  if(mobile()){const o=force===undefined?!shell.classList.contains('drawer'):force;shell.classList.toggle('drawer',o);$('#menuBtn').setAttribute('aria-expanded',o)}
+  else{const c=force===undefined?!shell.classList.contains('collapsed'):!force;shell.classList.toggle('collapsed',c);$('#menuBtn').setAttribute('aria-expanded',!c)}
+}
+$('#menuBtn').onclick=()=>toggleSide();
+$('#hideSide').onclick=()=>toggleSide(false);
+$('#scrim').onclick=()=>toggleSide(false);
+$('#tabs').addEventListener('click',e=>{const b=e.target.closest('.tab');if(b){show(b.dataset.t);if(mobile())toggleSide(false)}});
+addEventListener('hashchange',()=>show(location.hash.slice(1)));
+
+/* progreso */
+function prog(){
+  $('#progNum').textContent=done.size+' / 25';
+  $('#progBar').style.width=(done.size/25*100)+'%';
+}
+
+/* ===== NORMATIVA, JURISPRUDENCIA Y PROTOCOLOS ===== */
+// k: grupo de filtro (ley = leyes y decretos, res = resoluciones y guías, sent = sentencias, proto = sistemas y protocolos)
+const NK={ley:'Leyes y decretos',res:'Resoluciones y guías',sent:'Sentencias',proto:'Sistemas y protocolos'};
+const N={
+const:{b:'Constitución',k:'ley',t:'Constitución Política de 1991',a:'Arts. 67, 68 y 209',s:'La educación es un derecho y un servicio público con función social. La comunidad educativa participa en la dirección de los establecimientos y la función administrativa se rige por los principios del art. 209.'},
+l115:{b:'Ley',k:'ley',t:'Ley 115 de 1994 · Ley General de Educación',a:'Arts. 73 (PEI), 77 y 79 (currículo y plan de estudios), 84 (evaluación institucional anual), 87 (manual de convivencia), 93 y 94 (consejo estudiantil y personero), 142 a 145 (gobierno escolar)',s:'Marco general del servicio educativo: autonomía escolar mediante el PEI y participación de la comunidad en los órganos del gobierno escolar.'},
+d1075:{b:'Decreto',k:'ley',t:'Decreto 1075 de 2015 · Decreto Único Reglamentario del Sector Educación',a:'Compila, entre otros, los decretos 1860 de 1994, 4791 de 2008, 1290 de 2009, 1965 de 2013 y 1421 de 2017',s:'Es la fuente que se consulta primero: su numeración (2.3.…, 2.4.…) es la vigente. Cada decreto posterior lo modifica artículo por artículo.'},
+d1860:{b:'Decreto',k:'ley',t:'Decreto 1860 de 1994 (compilado en el Decreto 1075 de 2015)',a:'Art. 14 contenido del PEI (2.3.3.1.4.1); art. 15 adopción (2.3.3.1.4.2); art. 17 manual de convivencia (2.3.3.1.4.4); arts. 20 a 24 gobierno escolar (2.3.3.1.5.3 a .7); art. 25 funciones del rector (2.3.3.1.5.8)',s:'Reglamenta la organización pedagógica y el gobierno escolar. Su art. 25 lista las funciones del rector, varias de las cuales coinciden con las de la Resolución 3842.'},
+l715:{b:'Ley',k:'ley',t:'Ley 715 de 2001 · Sistema General de Participaciones',a:'Art. 10 (funciones de rectores o directores); arts. 11 a 14 (Fondos de Servicios Educativos); art. 13 (contratación)',s:'Fija competencias de la Nación y las entidades territoriales y enumera las funciones del rector: dirigir el PEI, presidir consejos, representar, distribuir asignaciones, controlar, evaluar, suministrar información y administrar el FSE. El numeral 10.7 fue declarado exequible en la Sentencia C-618 de 2002.'},
+fse:{b:'Decreto',k:'ley',t:'Decreto 1075 de 2015 · Fondos de Servicios Educativos (antes Decreto 4791 de 2008)',a:'Arts. 2.3.1.6.3.3 y .4 (ordenador del gasto); .6 (responsabilidades); .10 a .13 (presupuesto, uso y prohibiciones); .15 (tesorería); .16 (contabilidad); .17 (contratación); .18 (control); .20 (responsabilidad)',s:'El rector es el ordenador del gasto y el Consejo Directivo aprueba presupuesto, adiciones y traslados. Los FSE no tienen personería jurídica. Contratos de menos de 20 SMMLV se rigen por el reglamento del Consejo Directivo; desde 20 SMMLV, por el estatuto general de contratación.'},
+d4807:{b:'Decreto',k:'ley',t:'Decreto 4807 de 2011 · Gratuidad educativa',a:'Compilado en el Decreto 1075 de 2015',s:'Fija las condiciones de la gratuidad en establecimientos estatales: los recursos llegan al FSE y no se cobran derechos académicos ni servicios complementarios a quienes están cubiertos.'},
+d846:{b:'Ley y decreto',k:'ley',t:'Ley 2167 de 2021 y Decreto 846 de 2023 · Alimentación escolar rural',a:'El decreto modifica los arts. 2.3.1.6.3.11 y .13 del Decreto 1075 y adiciona normas de planeación y transferencias',s:'Permite contratar la alimentación escolar rural con asociaciones de padres o juntas de acción comunal a través del FSE, con autorización previa del ordenador del gasto. Los giros no eximen al FSE de las reglas presupuestales, contables y de tesorería.'},
+l80:{b:'Ley',k:'ley',t:'Estatuto General de Contratación (Ley 80 de 1993 y normas que la modifican)',a:'Aplica a contratos del FSE desde 20 SMMLV',s:'Por debajo de ese umbral rige el reglamento interno del Consejo Directivo, siempre con los principios de transparencia, economía, publicidad y rendición de cuentas del art. 209 de la Constitución.'},
+d1278:{b:'Decreto-ley',k:'ley',t:'Decreto-ley 1278 de 2002 · Estatuto de Profesionalización Docente',a:'Arts. 3 a 6 (campo de aplicación y cargos); art. 36 (efectos de la evaluación)',s:'Regula la carrera de docentes y directivos docentes, la evaluación del período de prueba y la evaluación anual de desempeño.'},
+d3782:{b:'Decreto',k:'ley',t:'Decreto 3782 de 2007 · Evaluación anual de desempeño',a:'Arts. 6 y 7 (quién evalúa); 11 y 12 (evaluador y evaluado); 13 a 17 (competencias); 18 (escala); 23 (recursos); 25 (consecuencias)',s:'El rector evalúa a coordinadores y docentes, y es evaluado por su superior jerárquico. Competencias funcionales 70 % y comportamentales 30 %. Escala: sobresaliente 90 a 100, satisfactorio 60 a 89, no satisfactorio 1 a 59.'},
+d1290:{b:'Decreto',k:'ley',t:'Decreto 1290 de 2009 (compilado en el Decreto 1075 de 2015) · Evaluación de estudiantes',a:'Sistema Institucional de Evaluación de Estudiantes (SIEE)',s:'Cada establecimiento define el SIEE, lo aprueba el Consejo Directivo y lo incorpora al PEI.'},
+res3842:{b:'Resolución',k:'res',t:'Resolución 003842 de 2022 · Manual de funciones, requisitos y competencias',a:'Anexo técnico para directivos docentes; cita los arts. 2.4.6.3.5 y 2.4.6.3.7 del Decreto 1075 (cargos y experiencia)',s:'Define las funciones específicas del rector, del director rural y del coordinador, y sus competencias funcionales y comportamentales.'},
+l1620:{b:'Ley y decreto',k:'ley',t:'Ley 1620 de 2013 y Decreto 1965 de 2013 · Convivencia escolar',a:'Decreto 1965: comité escolar de convivencia (arts. 22 a 27); manual (28 a 30); Ruta de Atención Integral (35 a 48); situaciones tipo I, II y III (40 a 44)',s:'Crea el Sistema Nacional de Convivencia Escolar. Exige comité de convivencia, manual de convivencia ajustado y una ruta con cuatro componentes: promoción, prevención, atención y seguimiento.'},
+l1098:{b:'Ley',k:'ley',t:'Ley 1098 de 2006 · Código de la Infancia y la Adolescencia',a:'Arts. 42 a 45',s:'Establece obligaciones especiales de las instituciones educativas frente a los menores y prohíbe las sanciones crueles, humillantes o degradantes.'},
+d1286:{b:'Decreto',k:'ley',t:'Decreto 1286 de 2005 · Participación de los padres',a:'Consejo de padres y asociación de padres; ajustó la composición del Consejo Directivo',s:'Organiza la participación de las familias en el PEI, en el mejoramiento de la institución y en el gobierno escolar.'},
+d1421:{b:'Decreto',k:'ley',t:'Decreto 1421 de 2017 · Educación inclusiva',a:'Compilado en el Decreto 1075 de 2015',s:'Regula la atención a estudiantes con discapacidad: ajustes razonables y Plan Individual de Ajustes Razonables (PIAR).'},
+d277:{b:'Decreto',k:'ley',t:'Decreto 277 de 2025 · Jornada escolar, asignación académica y jornada laboral',a:'Modifica los arts. 2.4.3.1.2, 2.4.3.2.1 y 2.4.3.3.3 del Decreto 1075 (12 de marzo de 2025)',s:'Preescolar 20 h, primaria 25 h y secundaria y media 22 h de asignación semanal. Jornada de 8 horas diarias, 6 de permanencia continua. El Decreto 1850 de 2002 fue el referente anterior y no se deroga expresamente.'},
+l1952:{b:'Ley',k:'ley',t:'Ley 1952 de 2019 · Código General Disciplinario',a:'En vigor desde el 29 de marzo de 2022 (Ley 2094 de 2021)',s:'Régimen disciplinario de los servidores públicos, incluidos docentes y directivos docentes.'},
+l1712:{b:'Ley',k:'ley',t:'Ley 1712 de 2014 · Transparencia y acceso a la información pública',a:'Ley estatutaria',s:'La información pública que produce el establecimiento debe ser veraz, oportuna y accesible, salvo las reservas legales.'},
+l1581:{b:'Ley',k:'ley',t:'Ley 1581 de 2012 · Protección de datos personales',a:'Régimen general de hábeas data',s:'Obliga a proteger los datos de estudiantes, familias y docentes, en especial los de menores.'},
+sifse:{b:'Resolución',k:'res',t:'Resolución MEN 16378 de 2013 · Reporte SIFSE',a:'Reporte trimestral (abril, julio, octubre y enero)',s:'El rector verifica y registra oportunamente la información financiera del FSE y responde por su veracidad.'},
+g34:{b:'Guía MEN',k:'res',t:'Guía 34 del MEN · Mejoramiento institucional',a:'De la autoevaluación al plan de mejoramiento',s:'Ordena el ciclo de autoevaluación institucional, plan de mejoramiento, ejecución y seguimiento.'},
+g31:{b:'Guía MEN',k:'res',t:'Guía 31 del MEN · Evaluación de competencias',a:'Docentes y directivos docentes',s:'Guía metodológica de la evaluación anual de desempeño y de las competencias funcionales y comportamentales.'},
+ntc:{b:'Norma técnica',k:'res',t:'NTC 4595 y NTC 4596 · Instalaciones y señalización escolar',a:'Normas técnicas colombianas (ICONTEC)',s:'Criterios de planeamiento, diseño y señalización de instalaciones y ambientes escolares. Confirma la edición vigente en ICONTEC.'},
+simat:{b:'Sistema',k:'proto',t:'SIMAT y Directorio Único de Establecimientos (DUE)',a:'Sistemas oficiales de información del sector',s:'Aquí se registran la matrícula, las novedades y los datos del establecimiento que la Secretaría de Educación y el Ministerio consultan.'},
+s437:{b:'Sentencia',k:'sent',t:'Sentencia T-437 de 2005',a:'Corte Constitucional',s:'Anuló una expulsión sin garantías. Las sanciones del manual exigen reglas previas, notificación, oportunidad de defensa, proporcionalidad y recursos, y debe ponderarse la edad y madurez del menor.'},
+s476:{b:'Sentencia',k:'sent',t:'Sentencia T-476 de 1995',a:'Corte Constitucional',s:'Protegió a estudiantes sancionados por su peinado. Es más apropiado recurrir a la pedagogía que a la represión, las reglas de presentación no pueden ser arbitrarias y no se aplica un manual que no está vigente.'},
+s307:{b:'Sentencia',k:'sent',t:'Sentencia T-307 de 2000',a:'Corte Constitucional',s:'La educación es derecho y deber. Una sanción es inválida si se omiten los pasos: órgano competente, investigación, audiencia, hallazgos sobre conductas concretas y aviso de los recursos.'},
+s091:{b:'Sentencia',k:'sent',t:'Sentencia T-091 de 2019',a:'Corte Constitucional',s:'Un colegio no puede negar la continuidad de un estudiante que llega a la mayoría de edad sin proceso disciplinario ni acto formal. Toda restricción debe justificarse, seguir el debido proceso y cumplir el manual.'},
+c866:{b:'Sentencia',k:'sent',t:'Sentencia C-866 de 2001',a:'Corte Constitucional · arts. 87 y 93 de la Ley 115',s:'El manual de convivencia que se acepta al matricularse no obliga para siempre: la comunidad puede reformarlo y debe haber canales de disenso. Avaló que el consejo estudiantil sea de los tres últimos grados.'},
+s646:{b:'Sentencia',k:'sent',t:'Sentencia T-646 de 2011',a:'Corte Constitucional',s:'La autonomía escolar no es absoluta. Si las normas internas chocan, prevalece la de mayor rango: el Acuerdo del Consejo Directivo sobre la Resolución del rector. El reglamento de evaluación debe ser uno solo y coherente.'},
+s176:{b:'Sentencia',k:'sent',t:'Sentencia T-176 de 2024',a:'Corte Constitucional',s:'Encontró vulnerados los derechos de unas niñas por no activar con diligencia la Ruta de Atención Integral de la Ley 1620 ante un caso de acoso escolar.'},
+s134:{b:'Sentencia',k:'sent',t:'Sentencia T-134 de 2025',a:'Corte Constitucional',s:'La infraestructura y su mantenimiento hacen parte de la disponibilidad y accesibilidad del derecho a la educación. Los espacios deben ser seguros y dignos, y Nación, departamento y municipio deben coordinarse.'},
+s011:{b:'Sentencia',k:'sent',t:'Sentencia T-011 de 2021',a:'Corte Constitucional',s:'Ordenó planes de contingencia y medidas provisionales para sedes rurales deterioradas: estudiar en condiciones dignas es parte del derecho y los edificios inseguros lo vulneran.'},
+s1228:{b:'Sentencia',k:'sent',t:'Sentencia T-1228 de 2008',a:'Corte Constitucional',s:'La educación de 5 a 18 años es derecho fundamental y debe ser progresivamente gratuita. El colegio no puede retener documentos ni excluir por cobros si los padres no pueden pagar, y debe tener un procedimiento para exonerar.'},
+s389:{b:'Sentencia',k:'sent',t:'Sentencia T-389 de 2020',a:'Corte Constitucional',s:'El derecho a la educación tiene cuatro componentes: disponibilidad, accesibilidad, adaptabilidad y aceptabilidad. La autoridad debe garantizar docentes suficientes acordes con el modelo pedagógico del PEI.'}
+};
+
+
+Object.assign(N,{
+l1146:{b:'Ley',k:'ley',t:'Ley 1146 de 2007 · Violencia sexual contra niños, niñas y adolescentes',a:'Arts. 12 y 15 (según el panel de Convivencia Digital; confirma el texto)',s:'Los docentes y directivos deben denunciar toda conducta o indicio de abuso sexual contra menores. El panel de Convivencia Digital indica que el deber se cumple dentro de las 24 horas siguientes al conocimiento.'},
+l2089:{b:'Ley',k:'ley',t:'Ley 2089 de 2021 · Prohibición del castigo físico',a:'Prohibición del castigo físico, los tratos crueles, humillantes o degradantes',s:'Prohíbe el castigo físico y los tratos crueles, humillantes o degradantes como método de corrección de niños, niñas y adolescentes, también en el aula.'},
+l1257:{b:'Ley',k:'ley',t:'Ley 1257 de 2008 · Violencia contra la mujer',a:'Medidas de sensibilización, prevención y sanción',s:'Protege a la mujer frente a la violencia en todos los ámbitos. Aplica cuando la víctima es una docente.'},
+cp:{b:'Ley',k:'ley',t:'Código Penal (Ley 599 de 2000)',a:'Arts. 220–221 (injuria y calumnia), 244 (extorsión), 269F (violación de datos personales), 454B (ocultar o destruir pruebas)',s:'Delitos que aparecen en los casos digitales. Verifica la numeración con un asesor jurídico antes de citar.'},
+cpp:{b:'Ley',k:'ley',t:'Código de Procedimiento Penal (Ley 906 de 2004)',a:'Art. 67 (deber de denunciar)',s:'Toda persona, y en especial el servidor público, debe denunciar los delitos que conozca y que se investigan de oficio.'},
+l2025:{b:'Ley',k:'ley',t:'Ley 2025 de 2020 · Escuelas de padres y madres',a:'Ley de escuelas para padres',s:'Promueve la formación de las familias para acompañar la vida escolar y la prevención.'},
+s478:{b:'Sentencia',k:'sent',t:'Sentencia T-478 de 2015 · Caso Sergio Urrego',a:'Corte Constitucional',s:'Un estudiante de 17 años murió por suicidio en 2014 tras un proceso disciplinario por un beso con otro estudiante. La Corte protegió sus derechos y ordenó al Ministerio de Educación revisar los manuales de convivencia para que no discriminen por orientación sexual o identidad de género.'},
+s529:{b:'Sentencia',k:'sent',t:'Sentencia T-529 de 2024 · Expulsión por denunciar en redes',a:'Corte Constitucional',s:'Un colegio canceló la matrícula de un estudiante de 14 años por la regla de injuria y calumnia, tras un video de denuncia, sin debido proceso. La Corte lo trató como censura y ordenó revisar el manual y el programa de educación sexual, ofrecer disculpas y capacitar.'},
+s076:{b:'Sentencia',k:'sent',t:'Sentencia T-076 de 2026 · Una nota que castiga',a:'Corte Constitucional',s:'Una nota actitudinal de 1.0, con descuentos por conductas sin criterios previos, funcionó como sanción sin garantías de debido proceso. La Corte ordenó una revisión interna donde el estudiante y su acudiente puedan ser escuchados y controvertir.'},
+s004a:{b:'Sentencia',k:'sent',t:'Sentencia T-004 de 2024 · Educación extramural sin proceso',a:'Corte Constitucional',s:'Una estudiante estuvo cinco meses fuera de clases por una sanción impuesta por el Comité de Convivencia sin cargos, sin traslado de pruebas, sin defensa y con una medida que el manual no preveía. Se vulneraron educación y debido proceso.'},
+s004b:{b:'Sentencia',k:'sent',t:'Sentencia T-004 de 2026 · Menores víctimas de violencia sexual',a:'Corte Constitucional',s:'Anuló un proceso disciplinario contra una niña de 14 años porque el colegio trató los efectos de la violencia sexual como problemas de comportamiento. Ordenó revocar la sanción, borrar el registro y reintegrarla de inmediato.'},
+s022:{b:'Sentencia',k:'sent',t:'Sentencia T-022 de 1992',a:'Corte Constitucional · por verificar',s:'La educación es derecho y deber: el estudiante también debe cumplir el manual.'},
+s618:{b:'Sentencia',k:'sent',t:'Sentencia T-618 de 1998',a:'Corte Constitucional · por verificar',s:'El manual no prevalece sobre la Constitución y solo es exigible si se conoce a tiempo.'},
+s251:{b:'Sentencia',k:'sent',t:'Sentencia T-251 de 2005',a:'Corte Constitucional · por verificar',s:'Precisa la autonomía de los colegios para reglamentar el comportamiento.'},
+s492:{b:'Sentencia',k:'sent',t:'Sentencia T-492 de 2010',a:'Corte Constitucional · por verificar',s:'Aceptar el manual al matricularse es válido, pero toda sanción exige debido proceso.'},
+s565:{b:'Sentencia',k:'sent',t:'Sentencia T-565 de 2013',a:'Corte Constitucional · por verificar',s:'Límites del manual: no puede imponer una apariencia personal. El rector lo aplica con debido proceso.'},
+s240:{b:'Sentencia',k:'sent',t:'Sentencia T-240 de 2018',a:'Corte Constitucional · por verificar',s:'El manual tiene tres dimensiones y debe respetar las reglas del debido proceso.'},
+s226:{b:'Sentencia',k:'sent',t:'Sentencia T-226 de 2020',a:'Corte Constitucional · por verificar',s:'El manual hace parte del PEI y de la autonomía, pero es desproporcionado si discrimina o ignora el debido proceso.'},
+s168:{b:'Sentencia',k:'sent',t:'Sentencia T-168 de 2022',a:'Corte Constitucional · por verificar',s:'El colegio vulneró el debido proceso en una actuación disciplinaria.'},
+s124:{b:'Sentencia',k:'sent',t:'Sentencia T-124 de 2024',a:'Corte Constitucional · por verificar',s:'Anotaciones en el observador del estudiante sin debido proceso.'},
+s196:{b:'Sentencia',k:'sent',t:'Sentencia T-196 de 2024',a:'Corte Constitucional · por verificar',s:'Cancelar la matrícula con un procedimiento incompleto vulnera debido proceso y educación.'},
+s094:{b:'Sentencia',k:'sent',t:'Sentencia T-094 de 2025',a:'Corte Constitucional · por verificar',s:'Reitera la educación como derecho-deber y las garantías del debido proceso escolar.'}
+});
+// Tema y estado de verificación de cada sentencia (v: 1 = leída en la Corte; 0 = tomada del panel de Convivencia Digital, por verificar)
+const SG={s437:['Debido proceso',1],s476:['Autonomía',1],s307:['Debido proceso',1],s091:['Debido proceso',1],c866:['Manual',1],s646:['Manual',1],s176:['Convivencia y acoso',1],s134:['Infraestructura',1],s011:['Infraestructura',1],s1228:['Gratuidad y permanencia',1],s389:['Calidad y docentes',1],
+ s478:['Manual',1],s529:['Entorno digital',1],s076:['Debido proceso',1],s004a:['Debido proceso',1],s004b:['Menores víctimas',1],
+ s022:['Manual',0],s618:['Manual',0],s251:['Autonomía',0],s492:['Debido proceso',0],s565:['Autonomía',0],s240:['Manual',0],s226:['Autonomía',0],s168:['Debido proceso',0],s124:['Debido proceso',0],s196:['Debido proceso',0],s094:['Debido proceso',0]};
+
+Object.assign(N,{
+g1:{b:'Guía',k:'res',t:'Guía MEN 1 · Vivir mejor, educar mejor (PESCC)',a:'Educación para la sexualidad y construcción de ciudadanía',s:'Orientación del Ministerio para el Proyecto de Educación para la Sexualidad y la Construcción de Ciudadanía (PESCC), el proyecto pedagógico con el que el colegio trabaja la formación en sexualidad y ciudadanía. Le permite revisar si el proyecto de educación sexual del colegio es integral y no discriminatorio, y si está articulado con el PEI y con la ruta de convivencia. Compare los contenidos y materiales del proyecto con la guía, involucre a docentes, orientación, estudiantes y familias, y deje acta de la revisión.',u:''},
+g2:{b:'Guía',k:'res',t:'Guía MEN 2 · ¿Cómo entender las Pruebas Saber y qué sigue?',a:'Evaluación de competencias',s:'Guía para interpretar los resultados de las pruebas externas Saber y usarlos en las decisiones del colegio. Le ayuda a pasar de los resultados a decisiones: qué competencias reforzar, qué grados priorizar y cómo informar a la comunidad. Analice los resultados por área y competencia con el Consejo Académico, convierta los hallazgos en metas del plan de mejoramiento y haga seguimiento trimestral.',u:''},
+g3:{b:'Guía',k:'res',t:'Guía MEN 3 · Manual de evaluación del desempeño de docentes y directivos docentes',a:'Evaluación docente',s:'Orientación sobre cómo evaluar el desempeño de docentes y directivos docentes. Da el marco para evaluar a los docentes a su cargo con criterios y evidencias. Concierte con cada docente sus contribuciones, recoja evidencias durante el año y haga retroalimentación.',u:''},
+g5:{b:'Guía',k:'res',t:'Guía MEN 5 · Y ahora... ¿Cómo mejoramos?',a:'Mejoramiento institucional',s:'Guía para convertir el diagnóstico institucional en un plan de mejoramiento. Le da una ruta para priorizar problemas, fijar metas y hacer seguimiento. Parta de la autoevaluación, escoja pocas prioridades, asigne responsables y recursos y revise los avances cada trimestre.',u:''},
+g6:{b:'Guía',k:'res',t:'Guía MEN 6 · Estándares Básicos de Competencias Ciudadanas',a:'Formación ciudadana',s:'Estándares que orientan lo que los estudiantes deben saber y saber hacer para convivir, participar y respetar la diversidad. Da un referente para el componente de promoción y prevención de la ruta de convivencia y para la formación en ciudadanía del PEI. Articule los estándares con el plan de estudios, los proyectos transversales y las acciones de convivencia.',u:''},
+g7:{b:'Guía',k:'res',t:'Guía MEN 7 · Formar en Ciencias: ¡el desafío!',a:'Ciencias naturales y sociales',s:'Estándares y orientaciones para la enseñanza de las ciencias naturales y sociales. Sirve para revisar la coherencia entre el plan de estudios y los estándares de ciencias. Use la guía con los planes de área y las reuniones de docentes de ciencias.',u:''},
+g22:{b:'Guía',k:'res',t:'Guía MEN 22 · Estándares Básicos de Competencias en Lenguas Extranjeras: Inglés',a:'Enseñanza del inglés',s:'Estándares que describen lo que los estudiantes deben lograr en inglés, organizados por niveles de referencia. Le da el criterio para revisar el plan de estudios de inglés y para planear formación docente. Revise los niveles esperados por grado, ajuste los planes de área y use los resultados de las pruebas externas para decidir apoyos.',u:''},
+g28:{b:'Guía',k:'res',t:'Guía MEN 28 · Aprendizajes para mejorar',a:'Buenas prácticas educativas',s:'Documento del Ministerio con experiencias y prácticas que mejoran el aprendizaje. Le da ejemplos para el trabajo con los equipos docentes. Úselo en reuniones de área para discutir qué prácticas pueden adaptarse al colegio.',u:''},
+g30:{b:'Guía',k:'res',t:'Guía MEN 30 · Ser competente en tecnología: ¡una necesidad para el desarrollo!',a:'Educación en tecnología',s:'Orientaciones para la educación en tecnología e informática. Sirve para revisar el área de tecnología e informática del plan de estudios. Alinee los planes de área y los recursos tecnológicos con las orientaciones de la guía.',u:''},
+g31:{b:'Guía',k:'res',t:'Guía MEN 31 · Guía metodológica de evaluación anual de desempeño laboral',a:'Evaluación de docentes',s:'El Ministerio la publicó en julio de 2008 para orientar la evaluación anual de desempeño de los docentes y directivos docentes del Decreto Ley 1278 de 2002. Es un proceso continuo, sistemático y basado en evidencia: se realiza durante todo el año escolar. Sus resultados hacen parte de la autoevaluación institucional y sirven para diseñar los planes de mejoramiento y de desarrollo profesional. Incluye protocolos para evaluar a docentes y a directivos docentes, con un instructivo para diligenciarlos. Concierte las contribuciones al inicio del año, recoja evidencias de manera permanente, haga la evaluación en los momentos establecidos y notifique el resultado. El Ministerio actualizó su página de evaluación anual el 24 de julio de 2026 y publicó directrices de 2026: consúltelas antes de aplicar.',u:'https://www.mineducacion.gov.co/1621/articles-169241_archivo_pdf.pdf'},
+g32:{b:'Guía',k:'res',t:'Guía MEN 32 · Educación técnica y tecnológica para la competitividad',a:'Educación técnica y tecnológica',s:'Orientaciones sobre la educación técnica y tecnológica y su relación con la competitividad. Es útil si el colegio tiene media técnica o articulación con instituciones de educación superior. Revise la pertinencia de las especialidades y las alianzas con el sector productivo.',u:''},
+g33:{b:'Guía',k:'res',t:'Guía MEN 33 · Organización del Sistema Educativo',a:'Organización de la educación colombiana',s:'Explica cómo está organizado el sistema educativo: niveles, grados y ciclos del servicio. Le da el panorama general para entender dónde se ubica el colegio dentro del sistema. Úsela para inducir a docentes nuevos y para revisar la estructura de niveles del PEI.',u:''},
+g49:{b:'Guía',k:'res',t:'Guía MEN 49 · Guías pedagógicas para la convivencia escolar',a:'Convivencia escolar',s:'Guía del Ministerio construida con base en la Ley 1620 y el Decreto 1965 de 2013. Reúne tres guías pedagógicas: Manual de convivencia, Ruta de Atención Integral para la Convivencia Escolar y ¿Qué puedo hacer para fortalecer la convivencia escolar? Ofrece herramientas pedagógicas para que el colegio revise y fortalezca sus estrategias de convivencia, y herramientas para los comités de convivencia. Incluye siglas y orientaciones sobre derechos humanos, derechos sexuales y reproductivos y violencia basada en género. Úsela al revisar el manual de convivencia y la ruta de atención, y para formar al Comité de Convivencia. La Ley 1620 da al rector el liderazgo del comité y la revisión del manual.',u:'https://contenidos.mineducacion.gov.co/ntg/men/pdf/Guia%20No.%2049.pdf'},
+d2277:{b:'Decreto',k:'ley',t:'Decreto 2277 de 1979 · Estatuto docente anterior',a:'Estatuto anterior al Decreto Ley 1278 de 2002',s:'Los docentes vinculados antes de 2002 pueden regirse por este estatuto en lugar del Decreto Ley 1278. Antes de aplicar una evaluación o una sanción, confirma qué estatuto cobija al docente.'},
+s249:{b:'Sentencia',k:'sent',t:'Sentencia T-249 de 2024 · Acoso escolar y ajustes razonables',a:'Corte Constitucional',s:'Una estudiante de 16 años sufrió acoso, amenazas y seguimiento. El plan de ajustes razonables se hizo solo por formalidad, perdió el año y el colegio le negó las evaluaciones de recuperación. La Corte halló vulnerado el derecho de petición, señaló fallas en la ruta y en el sistema de información de convivencia y ordenó medidas restaurativas y de política pública.'}
+});
+SG.s249=['Convivencia y acoso',1];
+// Norma por función: [id, por qué aplica aquí]
+const L={
+1:[['l115','El art. 73 da autonomía a cada establecimiento para formular y ejecutar su PEI, con participación de la comunidad.'],
+   ['d1860','El art. 14 fija los componentes del PEI y el art. 15 el procedimiento de adopción por etapas. El art. 25, literal a, manda orientar su ejecución.'],
+   ['l715','Numeral 10.1: dirigir la preparación del PEI con la participación de la comunidad educativa.'],
+   ['g34','El PEI se actualiza con los resultados de la autoevaluación institucional.'],
+   ['d1286','Las familias participan en la construcción del PEI a través del consejo y la asociación de padres.'],
+   ['s646','Las modificaciones se adoptan por Acuerdo del Consejo Directivo, que prevalece sobre una resolución del rector.']],
+2:[['l715','Numeral 10.5: dirigir los equipos docentes y crear alianzas para lograr las metas educativas.'],
+   ['d1860','El Consejo Académico, que el rector preside, articula a los docentes por áreas. El art. 25, literal f, lo pone a orientar el proceso educativo con ese Consejo.'],
+   ['d277','Define asignación académica y permanencia: es el marco con el que se organizan los equipos.'],
+   ['s389','Los docentes deben ser suficientes y acordes con el modelo pedagógico elegido en el PEI.']],
+3:[['d1860','El art. 25, literal d, pide mantener relaciones con las autoridades educativas, los patrocinadores y la comunidad local; el PEI incluye los procedimientos para relacionarse con otras organizaciones.'],
+   ['const','El art. 209 manda a las autoridades administrativas coordinar sus actuaciones para cumplir los fines del Estado.'],
+   ['d846','Ejemplo vigente de cooperación: contratar alimentación rural con asociaciones de padres o juntas de acción comunal.'],
+   ['l80','Si la cooperación se formaliza con recursos del FSE, el contrato sigue las reglas de contratación según su cuantía.']],
+4:[['l115','Los arts. 142 a 145 crean el Consejo Directivo y el Consejo Académico dentro del gobierno escolar.'],
+   ['d1860','El rector preside el Consejo Directivo, que se reúne mensualmente (art. 21), y el Consejo Académico (art. 24). Las funciones del Consejo están en el art. 23.'],
+   ['d1286','Cambió la composición del Consejo Directivo con la representación de los padres.'],
+   ['c866','Avaló que los representantes estudiantiles vengan de los tres últimos grados.'],
+   ['s646','Las decisiones del Consejo Directivo se adoptan por Acuerdo y tienen jerarquía sobre las resoluciones rectorales.'],
+   ['l1620','El rector preside el comité escolar de convivencia (art. 12 de la Ley 1620) y el Consejo Directivo adopta el manual.'],
+   ['l715','Numeral 10.2: presidir el Consejo Directivo y el Consejo Académico y coordinar el gobierno escolar.']],
+5:[['l715','Numeral 10.3: representar al establecimiento ante las autoridades y la comunidad.'],
+   ['fse','Ser ordenador del gasto no es lo mismo que representar a un fondo: los FSE no tienen personería jurídica.'],
+   ['s646','Sus actos como representante no pueden contradecir lo que decide el Consejo Directivo.']],
+6:[['g34','Su ciclo va de la autoevaluación al plan de mejoramiento, la ejecución y el seguimiento.'],
+   ['l115','El art. 84 ordena la evaluación institucional anual que alimenta el plan de mejoramiento.'],
+   ['d1860','El Consejo Académico participa en la evaluación institucional anual (art. 24).'],
+   ['l715','Numeral 10.4: formular y dirigir los planes anuales de acción y de mejoramiento.'],
+   ['fse','El rector elabora el proyecto anual de presupuesto y el Consejo Directivo lo aprueba: ahí se financian las acciones.']],
+7:[['l715','Numeral 10.14: el rector responde por la calidad del servicio.'],
+   ['const','Los arts. 67 y 68 definen la educación como servicio público con función social.'],
+   ['d1860','El art. 25, literal c: promover el mejoramiento continuo de la calidad.'],
+   ['s389','Cuatro componentes del derecho: disponibilidad, accesibilidad, adaptabilidad y aceptabilidad.'],
+   ['g34','Los resultados de la autoevaluación orientan las acciones de calidad.']],
+8:[['d1860','El art. 25, literal j: aplicar las disposiciones del Estado sobre la prestación del servicio.'],
+   ['d1075','Es el decreto que compila la reglamentación: antes de aplicar una norma se verifica su versión vigente.'],
+   ['d277','Ejemplo reciente: jornada escolar, asignación académica y jornada laboral.'],
+   ['d1421','Ejemplo: ajustes razonables y PIAR para estudiantes con discapacidad.'],
+   ['d846','Ejemplo: alimentación escolar rural contratada a través del FSE.']],
+9:[['l115','Los arts. 77 y 79 reconocen autonomía curricular y definen el plan de estudios.'],
+   ['d1860','El Consejo Académico organiza el plan de estudios y asiste al rector (art. 24).'],
+   ['d1290','El SIEE lo aprueba el Consejo Directivo y hace parte del PEI.'],
+   ['d1421','El currículo se flexibiliza con ajustes razonables según el PIAR.'],
+   ['s646','El reglamento de evaluación debe ser único y coherente con las normas de mayor rango.']],
+10:[['d277','Fija las horas semanales por nivel y dice que el rector distribuye jornada, permanencia y periodos en consulta con los Consejos Directivo y Académico.'],
+    ['l715','Distribuir las asignaciones académicas es función del rector (numeral 10.9). El 10.17 pide publicar horarios y cargas cada semestre y avisar por escrito a los padres.'],
+    ['s389','La distribución debe asegurar docentes suficientes en cada sede y nivel.']],
+11:[['l115','El título de formación de educadores sustenta la capacitación continua.'],
+    ['d1278','La carrera docente articula evaluación y desarrollo profesional.'],
+    ['d3782','Tras la evaluación el evaluador concierta un plan de desarrollo personal y profesional: es criterio objetivo para proponer capacitación.'],
+    ['fse','Revisa la lista de gastos permitidos y prohibidos: la presentación de la SED indica que capacitar funcionarios con recursos del FSE está restringido.'],
+    ['l715','Proponer qué docentes y directivos reciben capacitación es función del rector.']],
+12:[['l115','Los arts. 142 a 145 crean el gobierno escolar; los arts. 93 y 94, el consejo estudiantil y el personero.'],
+    ['d1860','Los arts. 20 a 24 regulan los órganos y los arts. 28 y 29 al personero y al consejo de estudiantes. El art. 25, literal h, pide identificar nuevas tendencias para mejorar el PEI.'],
+    ['d1286','Regula el consejo y la asociación de padres.'],
+    ['c866','La participación estudiantil puede limitarse a los tres últimos grados.'],
+    ['const','El art. 68 reconoce la participación de la comunidad en la dirección de los establecimientos.'],
+    ['l1620','El comité de convivencia incluye representantes de docentes, padres y estudiantes.']],
+13:[['fse','Es la norma central: ordenador del gasto, presupuesto, uso de recursos, tesorería, contabilidad y control.'],
+    ['l715','Los arts. 11 a 14 crean los FSE y el art. 13 la contratación de menor cuantía.'],
+    ['d4807','Los recursos de gratuidad entran al FSE y condicionan qué se puede cobrar.'],
+    ['d846','Cambia lo que el FSE puede financiar en alimentación escolar rural.'],
+    ['l80','Contratos desde 20 SMMLV siguen el estatuto general de contratación.'],
+    ['const','El art. 209 exige transparencia, economía y publicidad en la ejecución.'],
+    ['s1228','No se retienen documentos ni se excluye a estudiantes por cobros cuando la familia no puede pagar.']],
+14:[['l715','El rector rinde informe al Consejo Directivo al menos cada seis meses.'],
+    ['fse','Informe mensual de ejecución de recursos, informe de cierre de vigencia con excedentes y rendición de cuentas.'],
+    ['sifse','Reporte trimestral del FSE en abril, julio, octubre y enero.'],
+    ['l1712','Lo informado debe poder consultarse por la comunidad.'],
+    ['const','El art. 209 exige publicidad y rendición de cuentas de la función administrativa.']],
+15:[['l715','El rector administra las novedades y los permisos del personal (numeral 10.7, exequible según la C-618 de 2002).'],
+    ['d1278','Rige la carrera y las situaciones del personal vinculado por el nuevo estatuto.'],
+    ['res3842','Define el rol de los directivos y sus funciones frente al personal.']],
+16:[['l715','Controlar el cumplimiento de funciones y reportar irregularidades a la Secretaría de Educación (numeral 10.6).'],
+    ['d1860','El art. 25, literal b: velar por el cumplimiento de las funciones docentes y el oportuno aprovisionamiento de recursos.'],
+    ['d277','Define el cumplimiento de la jornada laboral que se controla.'],
+    ['l1952','Los incumplimientos pueden constituir falta disciplinaria; la Secretaría adelanta el proceso.']],
+17:[['d3782','Reglas de la evaluación anual: quién evalúa, evidencias, notificación, recursos, escala y consecuencias.'],
+    ['d1278','Fija el marco y los efectos de la evaluación anual (art. 36).'],
+    ['g31','Guía metodológica con las competencias que se evalúan.'],
+    ['l715','Numeral 10.10: evaluar cada año el desempeño del personal a su cargo.']],
+18:[['d1860','El art. 25, literal g: ejercer las funciones disciplinarias que le atribuyen la ley, los reglamentos y el manual de convivencia.'],
+    ['l1620','Define manual, comité y ruta: la base para actuar con debido proceso.'],
+    ['l1098','Prohíbe sanciones crueles, humillantes o degradantes contra menores.'],
+    ['s437','Garantías mínimas en toda sanción: regla previa, defensa, proporcionalidad y recursos.'],
+    ['s307','Pasos que debe seguir el proceso para que la sanción sea válida.'],
+    ['s476','La pedagogía se prefiere a la represión; las reglas no pueden ser arbitrarias.'],
+    ['s091','Restringir la continuidad de un estudiante exige acto formal y debido proceso.'],
+    ['c866','El manual se puede reformar y debe permitir el disenso.'],
+    ['l1952','Si el caso es de un servidor público, rige el código disciplinario y no el manual de convivencia.'],
+    ['l715','Numeral 10.11: imponer las sanciones del control interno disciplinario al personal; lo grave se remite a la Secretaría.'],
+    ['s004a','Sin cargos, pruebas ni defensa, y con una medida que el manual no prevé, la sanción es inválida.'],
+    ['s076','Hasta una nota de comportamiento que castiga exige debido proceso.'],
+    ['s004b','No se sanciona como mala conducta lo que son efectos de la violencia sexual.'],
+    ['l2089','Prohíbe el castigo físico y los tratos humillantes como corrección.']],
+19:[['d1860','El art. 25, literal e: establecer canales de comunicación entre los estamentos de la comunidad.'],
+    ['l1620','Los protocolos exigen recepción de quejas, confidencialidad y directorio de contactos.'],
+    ['l1581','Las comunicaciones con datos de menores deben proteger su información personal.'],
+    ['c866','El manual debe ofrecer canales para el disenso y la reforma.'],
+    ['s529','Quien denuncia no debe ser sancionado: ante una queja contra el colegio se activa el comité y la ruta antes que un proceso disciplinario.']],
+20:[['l715','El rector suministra información oportuna al departamento, distrito o municipio (numeral 10.13).'],
+    ['simat','Matrícula y datos del establecimiento se registran en los sistemas oficiales.'],
+    ['sifse','La información financiera del FSE se reporta cada trimestre.'],
+    ['l1712','La información debe ser veraz, oportuna y accesible.'],
+    ['l1581','Los reportes con datos personales exigen cuidado y reserva.']],
+21:[['d1860','El art. 25, literal i: promover actividades sociales, culturales y pedagógicas con la comunidad local; el PEI incluye estrategias de articulación con la cultura regional.'],
+    ['const','El art. 68 reconoce la participación de la comunidad en la educación.'],
+    ['l115','El PEI es el marco para estas actividades.'],
+    ['d1286','Las familias participan en el mejoramiento de la institución.'],
+    ['l2025','Las escuelas de padres son una vía de prevención con las familias.']],
+22:[['l1098','Las instituciones educativas tienen obligaciones especiales de protección y de promoción del bienestar de los menores.'],
+    ['l1620','La Ruta de Atención Integral desarrolla promoción, prevención, atención y seguimiento.'],
+    ['d1421','La permanencia incluye ajustes razonables y PIAR.'],
+    ['d4807','La gratuidad evita barreras económicas para entrar y permanecer.'],
+    ['d846','La alimentación escolar es una estrategia de permanencia, también en zonas rurales.'],
+    ['s1228','Las familias sin recursos no pueden quedar excluidas por cobros.'],
+    ['s176','Ejemplo de lo que pasa cuando no se activa la ruta frente al acoso escolar.'],
+    ['s091','La continuidad de estudiantes que llegan a la mayoría de edad requiere debido proceso.'],
+    ['const','El art. 67 garantiza el acceso y la permanencia en el sistema educativo.'],
+    ['l1146','Denuncia obligatoria de indicios de abuso sexual contra menores, dentro de las 24 horas según el panel de Convivencia Digital.'],
+    ['cpp','Todo servidor público debe denunciar los delitos que se investigan de oficio.'],
+    ['l2089','Prohíbe el castigo físico y los tratos humillantes dentro del plantel.'],
+    ['s004b','La sanción no puede dejar sin escuela a una menor víctima de violencia sexual.']],
+23:[['d1860','El manual de convivencia (art. 17) es donde se reglamentan los estímulos y reconocimientos.'],
+    ['c866','El manual debe poder reformarse con participación de la comunidad.'],
+    ['l1620','Prefiere medidas pedagógicas, reparadoras y de reconciliación.']],
+24:[['fse','Dentro de los gastos permitidos se financian mantenimiento y adecuación de la planta física, con aprobación del presupuesto por el Consejo Directivo.'],
+    ['ntc','Criterios técnicos para instalaciones y señalización escolares.'],
+    ['s134','Una infraestructura insegura vulnera la accesibilidad del derecho a la educación y exige coordinar Nación, departamento y municipio.'],
+    ['s011','Ordenó planes de contingencia para sedes rurales deterioradas.'],
+    ['l80','Obras y mantenimiento mayores siguen el régimen de contratación según su cuantía.'],
+    ['d1860','El art. 25 incluye disponer los recursos para el cumplimiento de las funciones docentes.']],
+25:[['res3842','Es la norma de la que sale la función: rector como líder pedagógico y administrativo.'],
+    ['l715','El art. 10 reúne las funciones pedagógicas, administrativas y financieras del cargo.'],
+    ['d1860','El art. 25 define sus funciones dentro del gobierno escolar.'],
+    ['d1278','Define el cargo de directivo docente dentro de la carrera.'],
+    ['d3782','Sus competencias funcionales (70 %) y comportamentales (30 %) se evalúan cada año.'],
+    ['g34','Orienta el liderazgo del mejoramiento institucional.'],
+    ['g31','Orienta la evaluación de sus competencias.']]
+};
+
+// Protocolo y seguimiento por función
+const P={
+1:{t:'Adopción del PEI (Decreto 1860, art. 15)',steps:['Formulación y deliberación con la comunidad educativa.','Adopción por el Consejo Directivo con el Consejo Académico.','Modificaciones, cuando corresponda.','Cronograma fijado por el Consejo Directivo.','Plan operativo que el rector presenta dentro de los tres meses siguientes a la adopción.']},
+6:{t:'Ciclo de mejoramiento (Guía 34)',steps:['Autoevaluación institucional anual.','Plan de mejoramiento con metas y responsables.','Ejecución con recursos del presupuesto aprobado.','Seguimiento y evaluación para el siguiente ciclo.']},
+10:{t:'Jornada y asignación (Decreto 277 de 2025)',steps:['El rector define el horario al inicio del año lectivo.','Distribuye jornada, permanencia y periodos en consulta con los Consejos Directivo y Académico.','Asignación semanal: preescolar 20 h, primaria 25 h, secundaria y media 22 h.','Descanso pedagógico de 5 minutos por cada 60 minutos, dentro de la asignación.','Publicar horarios y cargas cada semestre y avisar por escrito a los padres (Ley 715, numeral 10.17).']},
+13:{t:'Ciclo del FSE y seguimiento',steps:['El rector elabora el proyecto anual de presupuesto y el flujo de caja mensual.','El Consejo Directivo aprueba presupuesto, adiciones y traslados.','Ejecución sin comprometer más de lo disponible; retiros con dos firmas, una del rector.','Contratos: menos de 20 SMMLV por reglamento del Consejo Directivo; desde 20 SMMLV por el estatuto general.','Informe mensual de ejecución y reporte trimestral SIFSE.','Cierre de vigencia con informe de ejecución y excedentes no comprometidos.']},
+14:{t:'Calendario de informes',steps:['Mensual: informe de ejecución de recursos del FSE.','Trimestral: reporte SIFSE en abril, julio, octubre y enero.','Semestral: informe al Consejo Directivo (Ley 715).','Cierre de vigencia: ejecución presupuestal y excedentes.']},
+17:{t:'Evaluación anual (Decreto 3782 de 2007)',steps:['Informar al evaluado y recoger evidencias durante todo el año escolar.','Valorar competencias: funcionales 70 %, comportamentales 30 %.','Notificar el resultado, personalmente o por edicto.','Concertar el plan de desarrollo personal y profesional.','Recursos de reposición y apelación, resueltos en 15 días hábiles.','Entregar resultados a la Secretaría de Educación.']},
+18:{t:'Debido proceso disciplinario escolar: 6 pasos',steps:['Notificar formalmente a los padres o acudientes del estudiante investigado.','Formular los cargos por escrito, citando la norma del manual de convivencia que se habría incumplido.','Trasladar el expediente y las pruebas, incluidas las digitales.','Recibir los descargos. El panel de Convivencia Digital propone un plazo de 3 a 5 días hábiles: debe estar fijado en el manual.','Emitir un fallo motivado por la instancia que el manual designe.','Notificar la sanción y garantizar el recurso de apelación ante otra instancia.']},
+22:{t:'Ruta de Atención Integral (Decreto 1965 de 2013)',steps:['Tipo I (arts. 40 y 42): mediar pedagógicamente, fijar una solución y hacer seguimiento.','Tipo II (art. 43): atención en salud, protección, aviso a padres, acciones restaurativas, acta y reporte al sistema de información.','Tipo III (art. 44): atención en salud, aviso a padres, denuncia inmediata ante la Policía, medidas internas de protección, reporte y seguimiento.','Comité escolar de convivencia: sesiona al menos cada dos meses y hace el seguimiento.']}
+};
+
+
+(function(){const A={
+ 22:[['g1','Orienta el proyecto de educación para la sexualidad y la ciudadanía que sostiene la acogida y el bienestar.'],['g6','Estándares de competencias ciudadanas: referente para promover la convivencia.'],['g49','Guía oficial del manual de convivencia y de la Ruta de Atención Integral.'],['s249','Muestra qué pasa cuando el acoso no se atiende por la ruta y los ajustes razonables son solo formales.']],
+ 7:[['g49','Guía del Ministerio para revisar el manual y fortalecer el Comité de Convivencia.']],
+ 6:[['g5','Ruta para pasar del diagnóstico al plan de mejoramiento.'],['g2','Cómo usar los resultados Saber para decidir el mejoramiento.']],
+ 17:[['g3','Marco para evaluar el desempeño de docentes y directivos.'],['g31','Guía metodológica de la evaluación anual de desempeño laboral.'],['d2277','Algunos docentes se rigen por el estatuto anterior; confirma antes de evaluar o sancionar.']],
+ 18:[['d2277','Si el docente es anterior a 2002, verifica qué estatuto le aplica antes de sancionar.']]};
+Object.entries(A).forEach(([n,a])=>a.forEach(x=>{if(!L[n].some(y=>y[0]===x[0]))L[n].push(x)}))})();
+
+// Colores para normas repetidas
+const rep={};
+(function(){
+  const cnt={};
+  Object.entries(L).forEach(([n,a])=>a.forEach(([id])=>{(cnt[id]=cnt[id]||[]).push(+n)}));
+  Object.entries(cnt).filter(([,a])=>a.length>1).sort((a,b)=>b[1].length-a[1].length).forEach(([id,a],i)=>{rep[id]={fns:a,h:Math.round((i*137.5)%360)}});
+})();
+
+/* funciones */
+$('#areas').innerHTML=[['all','Todas (25)'],...Object.entries(AREAS).map(([k,v])=>[k,v+' ('+F.filter(f=>f.a===k).length+')'])]
+  .map(([k,l])=>`<button type="button" class="chip" data-a="${k}" aria-pressed="${k==='all'}">${l}</button>`).join('');
+$('#areas').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;area=b.dataset.a;
+  document.querySelectorAll('#areas .chip').forEach(c=>c.setAttribute('aria-pressed',c.dataset.a===area));render()});
+$('#q').addEventListener('input',e=>{term=e.target.value.trim();render()});
+const norm=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+const visible=()=>{const q=norm(term);return F.filter(f=>(area==='all'||f.a===area)&&(!q||norm([f.v,...f.more,f.t,f.x].join(' ')).includes(q)))};
+cur=1;
+function render(keepView){
+  const list=visible();
+  if(list.length&&!list.some(f=>f.n===cur))cur=list[0].n;
+  $('#areaHint').textContent=area==='all'?'':'Agrupación sugerida por área de gestión: es una ayuda para estudiar y no aparece en el documento original.';
+  renderList(list);renderCard(list);
+}
+function renderList(list){
+  const box=$('#items'),top=box.scrollTop,left=box.scrollLeft;
+  box.innerHTML=list.length?list.map(f=>`<button type="button" class="fi${done.has(f.n)?' done':''}" data-a="${f.a}" data-n="${f.n}" aria-current="${cur===f.n}"><span class="num">${f.n}</span><span class="tx"><b>${f.v}</b><small>${f.t}</small></span><span class="ck" aria-hidden="true">${done.has(f.n)?'✓':''}</span></button>`).join('')
+    :'<div class="empty">Ninguna función coincide. Prueba con otro verbo.</div>';
+  box.scrollTop=top;box.scrollLeft=left;
+}
+$('#items').addEventListener('click',e=>{const b=e.target.closest('.fi');if(b){cur=+b.dataset.n;render()}});
+function go(step,list){
+  list=list||visible();if(!list.length)return;
+  const i=list.findIndex(f=>f.n===cur);cur=list[(i+step+list.length)%list.length].n;render();
+  const el=$('.fi[aria-current="true"]');if(el)el.scrollIntoView({block:'nearest',inline:'nearest'});
+}
+let tb='mandato';
+const SH={fse:'Decreto 1075 · FSE',d1860:'Decreto 1860 de 1994',d1075:'Decreto 1075 de 2015',d1290:'Decreto 1290 de 2009',res3842:'Resolución 3842 de 2022',sifse:'Resolución 16378 de 2013',g34:'Guía 34',g31:'Guía 31',ntc:'NTC 4595 y 4596',simat:'SIMAT y DUE',const:'Constitución',l80:'Estatuto de Contratación'};
+const short=id=>SH[id]||N[id].t.split(' · ')[0].replace(/ \(.*\)/,'');
+const fnsOf=id=>Object.entries(L).filter(([,a])=>a.some(x=>x[0]===id)).map(([n])=>+n);
+function gotoFn(n){
+  area='all';term='';$('#q').value='';
+  document.querySelectorAll('#areas .chip').forEach(c=>c.setAttribute('aria-pressed',c.dataset.a==='all'));
+  cur=n;show('funciones');render();$('#fcard').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function normRow(f,id,why){
+  const n=N[id],r=rep[id];
+  const others=r?r.fns.filter(x=>x!==f.n):[];
+  return `<details class="nr${r?' rep':''}"${r?` style="--h:${r.h}"`:''}>
+    <summary><span class="nb">${n.b}</span><span class="nt"><b>${n.t}</b><small>${n.a}</small></span>${r?`<span class="nrb">${r.fns.length} funciones</span>`:''}</summary>
+    <div class="nbody"><p>${n.s}</p>
+      <div class="why"><b>En esta función</b>${why}</div>
+      ${r?`<div class="again"><span class="lbl">Por qué vuelve a aparecer</span>${others.map(o=>{const w=L[o].find(x=>x[0]===id)[1];return `<div class="row2"><button type="button" class="go" data-go="${o}" style="--h:${r.h}">F${o} · ${F[o-1].v}</button>${w}</div>`}).join('')}</div>`:''}
+    </div></details>`;
+}
+function renderCard(list){
+  const c=$('#fcard');
+  if(!list.length){c.innerHTML='<div class="pane"><div class="empty">No hay funciones para mostrar con este filtro.</div></div>';return}
+  const f=F[cur-1];c.dataset.a=f.a;
+  const links=L[f.n]||[],pr=P[f.n];
+  if(tb==='protocolo'&&!pr)tb='mandato';
+  const nrep=links.filter(x=>rep[x[0]]).length;
+  let pane='';
+  if(tb==='mandato'){
+    pane=`<div class="pane">
+      <div><span class="lbl">Mandato y alcance técnico</span><p class="mandate" style="margin-top:10px">${hl(f)}</p></div>
+      <div><span class="lbl">Verbos del mandato</span><div class="vrow" style="margin-top:10px"><span class="vchip">${f.v}</span>${f.more.map(m=>`<span class="vchip">${m}</span>`).join('')}</div></div>
+      <div class="teaser"><span><b>${links.length} normas y sentencias</b> · ${nrep} se repiten en otras funciones${pr?' · 1 protocolo':''}</span><button type="button" class="ghost" data-tab="normas">Ver normativa →</button></div>
+      <div class="actions"><button class="primary" id="dom" type="button" aria-pressed="${done.has(f.n)}">${done.has(f.n)?'✓ Dominada':'Marcar como dominada'}</button><button class="ghost" id="cp" type="button">Copiar mandato</button><button class="ghost" type="button" data-rt="gestion">Ver rutas →</button></div>
+    </div>`;
+  }else if(tb==='normas'){
+    const groups=Object.entries(NK).map(([k,l])=>{
+      const items=links.filter(x=>N[x[0]].k===k);
+      return items.length?`<h3 class="gh">${l} (${items.length})</h3><div class="nlist">${items.map(x=>normRow(f,x[0],x[1])).join('')}</div>`:'';
+    }).join('');
+    const mapRows=Object.entries(rep).map(([id,r])=>`<div class="maprow" style="--h:${r.h}"><span class="nm">${short(id)}</span>${r.fns.map(n=>`<button type="button" class="go" data-go="${n}" style="--h:${r.h}">F${n}</button>`).join('')}</div>`).join('');
+    pane=`<div class="pane">
+      <div class="legend"><span><i class="r"></i>Color: la norma también aparece en otras funciones (${nrep} aquí)</span><span><i></i>Gris: norma propia de esta función</span></div>
+      ${groups}
+      <p class="note">Guía de estudio hecha con normas y sentencias consultadas en fuentes oficiales y de la rama judicial. Confirma el texto vigente y el artículo exacto antes de citar en una prueba o en un acto administrativo.</p>
+      <details class="map"><summary>Mapa de normas repetidas (${Object.keys(rep).length})</summary>${mapRows}</details>
+    </div>`;
+  }else{
+    pane=`<div class="pane"><div><span class="lbl">Protocolo y seguimiento</span><h3 style="margin-top:6px;font-size:20px">${pr.t}</h3></div><ol class="steps">${pr.steps.map(x=>`<li><span>${x}</span></li>`).join('')}</ol><div class="actions"><button class="ghost" type="button" data-rt="${f.n===18?'debido':f.n===22?'atencion':'gestion'}">Abrir en Rutas →</button></div></div>`;
+  }
+  c.innerHTML=`<div class="fband">
+    <div><span class="lbl">Verbo principal</span><div class="vv">${f.v}</div></div>
+    <div class="mt"><h2>${f.t}</h2><p>Función ${f.n} de 25 · ${AREAS[f.a]} (sugerida) · Resolución 003842</p></div>
+    <div class="fnav"><button class="ib" id="prev" type="button" aria-label="Función anterior">←</button><button class="ib" id="next" type="button" aria-label="Función siguiente">→</button></div>
+  </div>
+  <div class="seg" role="tablist" aria-label="Contenido de la función">
+    <button class="sg" role="tab" data-tab="mandato" aria-selected="${tb==='mandato'}">Mandato</button>
+    <button class="sg" role="tab" data-tab="normas" aria-selected="${tb==='normas'}">Normativa<span class="ct">${links.length}</span></button>
+    <button class="sg" role="tab" data-tab="protocolo" aria-selected="${tb==='protocolo'}" ${pr?'':'disabled title="Esta función no tiene protocolo propio"'}>Protocolo${pr?'<span class="ct">1</span>':''}</button>
+  </div>${pane}`;
+  c.querySelectorAll('[data-tab]').forEach(t=>t.onclick=()=>{if(t.disabled)return;tb=t.dataset.tab;render()});
+  c.querySelectorAll('[data-go]').forEach(g=>g.onclick=()=>{gotoFn(+g.dataset.go)});
+  $('#prev').onclick=()=>go(-1,list);
+  $('#next').onclick=()=>go(1,list);
+  const dom=$('#dom');if(dom){
+    dom.onclick=()=>{done.has(f.n)?done.delete(f.n):done.add(f.n);save();prog();render();toast(done.has(f.n)?'Función '+f.n+' dominada':'Función '+f.n+' pendiente')};
+    $('#cp').onclick=()=>{const txt=f.n+'. '+f.t+' ('+f.v+'): '+f.x;
+      (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>toast('Copiado')).catch(()=>{const r=document.createRange();r.selectNodeContents(c.querySelector('.mandate'));const g=getSelection();g.removeAllRanges();g.addRange(r);toast('Texto seleccionado')})};
+  }
+}
+
+
+/* ===== CASOS ===== */
+const CZ={"CASES": {"d": {"n": "Deepfake sexual contra docente", "i": "🎭", "g": "Tipo III · Delito digital", "L": ["Ley 1257 de 2008", "Ley 1620 de 2013", "C.P. art. 269F, 244, 454B", "Sentencia T-004/2024"], "F": [["Contención digital", "0–2 h", ["Fijar evidencia ANTES de pedir retiro: capturas con URL, fecha y hora", "Reportar a Meta, TikTok, X y WhatsApp por contenido sexual no consentido", "Pedir a Sijín / CAI Virtual el bloqueo de la URL si persiste"]], ["Protección a la docente", "0–24 h", ["Remitir a valoración psicosocial (FOMAC / SST)", "Prohibido culpar, cuestionar fotos reales o sugerir traslado", "Si se incapacita, reportar como accidente de trabajo psicosocial"]], ["Denuncia penal", "24–48 h", ["Denuncia ante Fiscalía (Ciberdelitos) por violación de datos personales y violencia psicológica", "Gaula 165 si hay exigencia de dinero, notas o favores", "Autor menor de 14: ICBF / Comisaría. De 14 a 17: Sistema de Responsabilidad Penal Adolescente"]], ["Proceso disciplinario", "Días 3–20", ["Abrir expediente y cumplir los 6 pasos del debido proceso", "Registrar todo en el Libro de Actas del Comité de Convivencia", "Sancionar solo con fallo motivado del Consejo Directivo"]], ["Reparación y dignidad", "Día 5 en adelante", ["Circular institucional que aclara que la imagen es un montaje con IA", "Desagravio formal, público o privado, a elección de la docente", "Informar a la docente su derecho a acciones civiles de reparación"]]]}, "e": {"n": "Imágenes íntimas o deepfake de una estudiante", "i": "🛡️", "g": "Tipo III · Víctima menor", "L": ["Ley 1620 de 2013", "Ley 1098 de 2006", "Línea 141 ICBF", "Te Protejo"], "F": [["Protección inmediata", "0–2 h", ["Escuchar a la víctima sin culparla ni interrogarla", "NO reenviar, copiar ni almacenar las imágenes: es material de abuso sexual infantil", "Notificar a los acudientes de forma reservada"]], ["Reporte obligatorio", "0–24 h", ["Denuncia ante Policía de Infancia y Adolescencia o Fiscalía", "Reporte en Te Protejo y línea 141 del ICBF", "Registrar el caso en el sistema de convivencia escolar"]], ["Salud mental", "24–72 h", ["Remisión a salud mental vía EPS", "Plan de acompañamiento con orientación escolar", "Seguimiento semanal del Comité de Convivencia"]], ["Medidas con agresores", "Días 3–20", ["Debido proceso con acudientes", "Remisión a SRPA o restablecimiento de derechos según edad", "Medidas pedagógicas y de no repetición"]]]}, "s": {"n": "Sextorsión o grooming a estudiante", "i": "🎣", "g": "Tipo III · Riesgo alto", "L": ["C.P. art. 244", "Línea 165 Gaula", "Ley 1098 de 2006"], "F": [["Cortar el chantaje", "0–1 h", ["No pagar, no responder ni negociar", "Conservar la conversación completa sin editar", "Bloquear y reportar el perfil en la plataforma"]], ["Denuncia", "0–24 h", ["Gaula 165 o Fiscalía", "CAI Virtual de la Policía Nacional", "Entregar dispositivo solo a la autoridad"]], ["Protección", "24–72 h", ["Citar a acudientes y activar la ruta de la Ley 1620", "Atención psicológica", "Verificar otras posibles víctimas"]], ["Prevención", "Semana 2", ["Taller de consentimiento digital con el grado", "Circular a familias sobre señales de grooming", "Revisar reglas de uso de redes en el Manual"]]]}, "p": {"n": "Abuso sexual por un docente o directivo", "i": "🚨", "g": "Tipo III · Delito contra menor", "L": ["Ley 1146 de 2007 arts. 12 y 15", "Ley 1098 de 2006", "Ley 1952 de 2019", "Decreto 1278 de 2002"], "F": [["Protección inmediata", "0–2 h", ["Escuchar a la víctima sin interrogarla ni pedirle que repita el relato", "Informar a la Secretaría de Educación para que separe al presunto agresor del contacto con estudiantes", "Atención médica y psicológica de urgencia, sin esperar a que haya denuncia"]], ["Denuncia obligatoria", "Máximo 24 h", ["Denunciar ante Fiscalía o Policía de Infancia y Adolescencia: el plazo legal es de 24 horas", "Reportar a ICBF o Comisaría de Familia para restablecer derechos", "Informar a los acudientes, salvo que alguno sea sospechoso"]], ["Reporte administrativo", "24–48 h", ["Oficio a la Unidad Jurídica o Control Interno Disciplinario de la Secretaría de Educación", "Registrar en el sistema de convivencia y en el acta del Comité, sin detalles que revictimicen", "Proteger a testigos y a quienes denunciaron"]], ["Proceso disciplinario y penal", "Día 3 en adelante", ["La investigación la hacen la Fiscalía y el control disciplinario; el colegio no investiga ni confronta", "Reserva total: no difundir el nombre del estudiante ni del investigado", "Colaborar con las autoridades y entregar los registros que pidan"]], ["Acompañamiento y prevención", "Semana 2 en adelante", ["Plan de acompañamiento psicosocial para la víctima y su grupo", "Garantizar que la víctima siga estudiando (T-004/26)", "Revisar riesgos: espacios con visibilidad, acompañamiento de adultos y canales de denuncia"]]]}, "r": {"n": "El presunto agresor es el rector", "i": "🏛️", "g": "Tipo III · Delito contra menor", "L": ["Ley 1146 de 2007 art. 12", "Ley 1952 de 2019", "Ley 715 de 2001 art. 10.6"], "F": [["Quien recibe la queja", "0–2 h", ["Cualquier docente u orientador debe denunciar directamente, sin pasar por el rector", "Proteger a la víctima y no dejarla a solas con el denunciado", "No confrontar al rector ni avisarle antes de denunciar"]], ["Denuncia externa", "Máximo 24 h", ["Fiscalía o Policía de Infancia y Adolescencia", "Secretaría de Educación de Boyacá (Control Interno Disciplinario)", "ICBF o Comisaría de Familia"]], ["Separación del cargo", "24–72 h", ["La Secretaría de Educación o el nominador decide la medida cautelar y quién asume la rectoría", "El denunciado no debe presidir el Comité ni acceder al expediente", "Pedir a la Secretaría acompañamiento al colegio"]], ["Atención a la comunidad", "Semana 1", ["Comunicado sobrio de la Secretaría, sin nombres ni detalles", "Apoyo psicosocial a estudiantes y docentes", "Garantizar la continuidad de las clases"]], ["Procesos", "Días 7 en adelante", ["Proceso penal en la Fiscalía y disciplinario en la Secretaría o la Procuraduría", "Presunción de inocencia hasta que haya decisión en firme", "Seguimiento del caso por el Comité de Convivencia, sin el denunciado"]]]}, "m": {"n": "Maltrato o humillación de un docente en el aula", "i": "✋", "g": "Tipo II–III · Estudiante afectado", "L": ["Ley 2089 de 2021", "Ley 1098 de 2006", "Ley 1952 de 2019"], "F": [["Detener y proteger", "0–2 h", ["Retirar al estudiante de la situación y acompañarlo", "Valoración médica si hay lesiones y dejar registro", "Informar a los acudientes el mismo día"]], ["Reportar", "24 h", ["El rector informa a la Secretaría de Educación", "Si hay lesión o conducta delictiva, denuncia ante Fiscalía y reporte a ICBF", "Registrar el caso en el sistema de convivencia"]], ["Actuación disciplinaria", "Días 2–15", ["Escuchar al docente en descargos con todas las garantías", "El castigo físico y los tratos humillantes están prohibidos como método de corrección", "Remitir a control disciplinario si la falta es grave"]], ["Medidas inmediatas", "Mientras se define", ["Evitar el contacto del docente con el estudiante, por ejemplo cambiando de grupo o con acompañamiento", "Atención psicológica para el estudiante", "Sin represalias contra quien denunció"]], ["Prevención", "Semana 3", ["Formación docente en disciplina positiva", "Revisar en el manual las medidas correctivas permitidas", "Canal confidencial para que los estudiantes reporten"]]]}, "c": {"n": "Ciberacoso o injuria contra docente", "i": "📣", "g": "Tipo II–III", "L": ["C.P. arts. 220–221", "Sentencia T-529/2024"], "F": [["Fijar evidencia", "0–4 h", ["Capturas con URL, fecha, hora y cuenta emisora", "Exportar chats completos con archivos", "No responder ni confrontar en redes"]], ["Desmonte y rectificación", "24 h", ["Solicitar retiro a la plataforma", "Pedir rectificación a quien publicó", "Comunicado interno sin señalar culpables"]], ["Denuncia", "24–72 h", ["Denuncia por injuria o calumnia ante Fiscalía", "Apoyo jurídico a la docente", "Reporte a SST por riesgo psicosocial"]], ["Convivencia", "Días 3–15", ["Citar al Comité de Convivencia", "Debido proceso con acudientes", "Medidas restaurativas y seguimiento"]]]}}, "EV": ["Capturas completas: imagen, cuenta, fecha, hora, reacciones, comentarios y URL", "Exportar chats completos (WhatsApp o Telegram) con multimedia", "Guardar archivos nativos en USB exclusivo, sin editar ni recortar", "Registrar app o marca de agua de IA si es detectable", "Redactar Acta de Fijación Probatoria con hash del archivo", "Advertir por escrito: borrar o alterar equipos es delito (art. 454B)"], "DIR": [["Emergencia", "123", "Policía Nacional"], ["Gaula (extorsión)", "165", "Gaula Policía y Ejército"], ["ICBF", "141", "Protección de niñez y adolescencia"], ["Fiscalía", "122", "Denuncia y orientación"], ["Mujeres", "155", "Orientación por violencia de género"], ["CAI Virtual", "caivirtual.policia.gov.co", "Denuncia de delitos informáticos"], ["Te Protejo", "teprotejo.org", "Reporte de material de abuso infantil"]]};
+const LM=[[/1257/,'l1257'],[/Ley 1620/,'l1620'],[/C\.P\./,'cp'],[/T-004\/2024/,'s004a'],[/1098/,'l1098'],[/1146/,'l1146'],[/1952/,'l1952'],[/1278/,'d1278'],[/715/,'l715'],[/2089/,'l2089'],[/T-529\/2024/,'s529']];
+const lid=t=>{const m=LM.find(x=>x[0].test(t));return m?m[1]:null};
+const casesOf=id=>Object.entries(CZ.CASES).filter(([,c])=>c.L.some(t=>lid(t)===id)).map(([k])=>k);
+let cs='d';
+function gotoCase(k){cs=k;show('casos');renderCases();$('#ccard').scrollIntoView({behavior:'smooth',block:'start'})}
+function renderCases(){
+  $('#cchips').innerHTML=Object.entries(CZ.CASES).map(([k,c])=>`<button type="button" class="chip" data-k="${k}" aria-pressed="${k===cs}">${c.n}</button>`).join('');
+  const c=CZ.CASES[cs];
+  const chips=c.L.map(t=>{const id=lid(t);return id?`<button type="button" class="lc${rep[id]?' rep':''}"${rep[id]?` style="--h:${rep[id].h}"`:''} data-n="${id}" aria-expanded="false">${t}</button>`:`<span class="lc plain">${t}</span>`}).join('');
+  $('#ccard').innerHTML=`<div class="cband"><span class="lbl">${c.g}</span><h2>${c.n}</h2></div>
+  <div class="pane">
+    <div class="legal" style="margin:0;padding:0;border:0"><span class="lbl">Normas y sentencias del caso</span><div class="lchips">${chips}</div><div class="where" hidden></div></div>
+    <div><span class="lbl">Qué hacer, por fases</span><ol class="phases" style="margin-top:12px">${c.F.map(f=>`<li><div><div class="phh"><b>${f[0]}</b><span class="tm">${f[1]}</span></div><ul>${f[2].map(x=>`<li>${x}</li>`).join('')}</ul></div></li>`).join('')}</ol></div>
+    <div class="ctools">
+      <details class="d"><summary>Fijar la evidencia digital</summary><div class="in"><ol>${CZ.EV.map(x=>`<li>${x}</li>`).join('')}</ol></div></details>
+      <details class="d"><summary>Directorio de apoyo</summary><div class="in"><ul class="dir">${CZ.DIR.map(d=>`<li><b>${d[1]}</b><span>${d[0]} · ${d[2]}</span></li>`).join('')}</ul></div></details>
+      <details class="d"><summary>Debido proceso disciplinario</summary><div class="in">Los 6 pasos están en la función 18. <button type="button" class="lf" data-go="18" style="margin-top:8px">Ir a F18 · Ejercer</button></div></details>
+    </div></div>`;
+  const card=$('#ccard'),wh=card.querySelector('.where');
+  card.onclick=e=>{
+    const g=e.target.closest('[data-go]');if(g){gotoFn(+g.dataset.go);return}
+    const b=e.target.closest('button.lc');if(!b)return;
+    const open=b.getAttribute('aria-expanded')==='true';
+    card.querySelectorAll('.lc').forEach(x=>x.setAttribute('aria-expanded','false'));
+    if(open){wh.hidden=true;return}
+    b.setAttribute('aria-expanded','true');
+    const id=b.dataset.n,fs=fnsOf(id);
+    wh.innerHTML=`<b>${N[id].t}</b><span>${N[id].a}</span><span>${N[id].s}</span>${fs.length?`<span class="lbl">Explicada en las funciones</span><div class="lchips">${fs.map(n=>`<button type="button" class="lf" data-go="${n}">F${n} · ${F[n-1].v}</button>`).join('')}</div>`:''}`;
+    wh.hidden=false;
+  };
+}
+$('#cchips').addEventListener('click',e=>{const b=e.target.closest('.chip');if(b){cs=b.dataset.k;renderCases()}});
+
+/* ===== SENTENCIAS ===== */
+let stg='all',sterm='';
+const sKey=id=>{const m=N[id].t.match(/(C|T)-(\d+) de (\d{4})/);return m?{y:+m[3],n:+m[2],lab:m[1]+'-'+m[2]+'/'+m[3].slice(2),link:'https://www.corteconstitucional.gov.co/relatoria/'+m[3]+'/'+m[1].toLowerCase()+'-'+m[2].padStart(3,'0')+'-'+m[3].slice(2)+'.htm'}:{y:0,n:0,lab:id,link:''}};
+const SIDS=Object.keys(SG).sort((a,b)=>sKey(b).y-sKey(a).y||sKey(b).n-sKey(a).n);
+const TAGS=[...new Set(SIDS.map(i=>SG[i][0]))];
+const S2=[["T-478/15", "m", "Caso Sergio Urrego", "Discriminación por orientación sexual. La Corte ordenó revisar los manuales de convivencia del país.", "Un estudiante de 17 años del Gimnasio Castillo Campestre sufrió hostigamiento y discriminación por su orientación sexual y murió por suicidio en 2014. Su madre presentó la tutela.", "La Corte concluyó que el colegio vulneró sus derechos. Ordenó un acto de desagravio y le exigió al Ministerio de Educación revisar los manuales de convivencia para que respeten la orientación sexual y la identidad de género, e implementar en un año el Sistema de Convivencia Escolar con su ruta de atención.", "Los manuales no pueden discriminar|El colegio responde por el hostigamiento y por no activar la ruta|Es el origen de la revisión de manuales y del sistema de información de convivencia", "Revise el manual: ninguna norma sobre afecto u orientación que discrimine|Active la ruta ante cualquier denuncia de discriminación|Acompañe a quien denuncia y no lo sancione por hacerlo", "Leída en fuentes"], ["T-529/24", "w", "Expulsión por denunciar en redes", "Un colegio expulsó a un estudiante por un video de denuncia. La Corte lo calificó censura.", "Un estudiante de 14 años denunció ante una fundación actos de discriminación por orientación sexual en su colegio, y la fundación publicó un video. El mismo día, una resolución rectoral canceló su matrícula por la falta de injuria y calumnia, sin etapa de descargos. Luego lo reintegraron en modalidad semiescolarizada, con disculpas y la condición de retirar el video.", "La Corte encontró vulnerados el debido proceso, la educación digna sin discriminación, la libertad de expresión y el derecho a defender derechos humanos. Ordenó nivelación académica, disculpas públicas o privadas a elección del estudiante, revisar el manual con toda la comunidad, ajustar el proyecto de educación sexual y capacitar a la Secretaría.", "El colegio no activó la ruta de convivencia: abrió un proceso disciplinario contra quien denunció|La semiescolarización funcionó como castigo encubierto|Una sanción válida exige debido proceso, cargos probados, falta prevista en el manual y proporcionalidad|En discriminación se invierte la carga de la prueba: debe probar el colegio", "Ante una denuncia contra el colegio, active el Comité y la ruta antes que un proceso disciplinario|No sancione por expresarse o denunciar|No condicione el reintegro a retirar publicaciones|Revise la falta de injuria y calumnia del manual", "Leída"], ["T-076/26", "d", "Una nota que castiga", "Bajar la nota actitudinal por mal comportamiento es una sanción y exige debido proceso.", "A un estudiante de sexto grado le pusieron 1.0 en el componente actitudinal con un descuento de 5 puntos por falta. No había criterios previos ni soportes, y el colegio conocía sus dificultades de atención y no hizo ajustes.", "La Corte declaró vulnerados el debido proceso, la educación y el derecho de petición. Ordenó revisar la calificación con escucha real del estudiante y su acudiente, con seguimiento de la Secretaría.", "Si la nota se usa para castigar, es sanción y exige reglas conocidas, hechos claros, soportes, defensa y constancia escrita|Debe escucharse al niño|La evaluación debe adaptarse a estudiantes con TDAH sin exigir diagnóstico|Ojo: las exigencias de base legal clara e individualización son derecho comparado (Francia) citado por la Corte, no una regla colombiana aparte", "No descuente puntos por conducta fuera del procedimiento del manual|Lleve registro escrito de cada llamado de atención|Responda de fondo y a tiempo las peticiones de los acudientes|Revise PIAR y ajustes antes de calificar comportamiento", "Leída"], ["T-004/26", "v", "Sanción que deja sin escuela", "Un colegio no puede desescolarizar a una adolescente víctima de violencia sexual sin debido proceso.", "Una adolescente de 14 años fue desescolarizada por un colegio de Sasaima tras un proceso disciplinario. Había antecedentes de violencia sexual, abandono y procesos de restablecimiento de derechos.", "La Corte concluyó que no hubo comunicación formal, ni conocimiento de pruebas, ni término de descargos. Protegió el debido proceso y la educación y ordenó articular con la Comisaría de Familia el entorno escolar más adecuado y el reintegro si responde a su interés superior y ella quiere volver.", "La expulsión o no renovación de matrícula es excepcional y exige causales previas y debido proceso|La sanción debe tener enfoque pedagógico, diferencial y de género|La escuela debe ser un espacio seguro", "Antes de sancionar a una víctima, consulte Comisaría de Familia y orientación|Notifique cargos, pruebas y plazo de descargos por escrito|Garantice acompañamiento psicológico y continuidad escolar", "Leída en fuentes"], ["T-094/25", "d", "Garantías mínimas del debido proceso", "Fija lo mínimo que debe tener todo proceso disciplinario escolar.", "Ficha parcial: la leí a través de la T-076/26, que la cita. No revisé los hechos del caso.", "Según la T-076/26, esta sentencia precisó que el reglamento debe prever: comunicación formal de apertura, cargos claros con la norma infringida, traslado completo de pruebas, plazo de defensa, decisión motivada, sanción proporcional y recursos.", "Es la lista de control para cualquier sanción|Omitir una garantía vulnera el debido proceso y puede llevar a inaplicar el reglamento", "Use esta lista como formato del expediente disciplinario|Verifique que su manual contenga cada etapa", "Ficha parcial"], ["T-004/24", "d", "Comité sin apertura formal", "Un proceso del Comité de Convivencia sin apertura formal ni defensa vulnera la educación.", "Ficha parcial: no leí el texto completo. Se ha usado como referencia del debido proceso ante el Comité de Convivencia.", "Según lo que verifiqué, la Corte lo reprochó por faltar apertura formal del proceso y oportunidad de defensa. Su documento le atribuye una secuencia de 6 pasos que no encontré como tal.", "El Comité también debe abrir el proceso formalmente|Debe haber oportunidad real de defensa", "Deje acta de apertura del proceso|Cite al estudiante y a su acudiente", "Ficha parcial"], ["T-196/24", "d", "Cancelación de matrícula incompleta", "Cancelar matrícula con un procedimiento incompleto vulnera debido proceso y educación.", "Ficha parcial: no abrí el texto completo.", "Se cita en la jurisprudencia por declarar vulnerados el debido proceso y la educación cuando la cancelación de matrícula no siguió el procedimiento completo.", "La cancelación es la sanción más gravosa y la más revisada", "Complete todos los pasos antes de cancelar", "Ficha parcial"], ["T-168/22", "d", "Colegio vulneró el debido proceso", "La Corte declaró que un colegio vulneró el debido proceso en una actuación disciplinaria.", "Ficha parcial: no abrí el texto completo.", "Se menciona entre las sentencias que reiteran el debido proceso escolar.", "Reitera la línea jurisprudencial del debido proceso en el colegio", "Documente cada etapa del proceso", "Ficha parcial"], ["T-124/24", "d", "Anotaciones en el observador", "Las anotaciones del observador también deben respetar el debido proceso.", "Ficha parcial: la tutela cuestionaba anotaciones en el observador sin debido proceso. No abrí el texto completo.", "No pude verificar el fallo exacto.", "El observador puede producir efectos disciplinarios", "Informe al estudiante y al acudiente de cada anotación|Permita su versión antes de registrarla", "Ficha parcial"], ["T-226/20", "a", "Autonomía y proporcionalidad", "El manual hace parte del PEI y de la autonomía, pero tiene límites.", "Ficha parcial: no abrí el texto completo.", "Según lo que verifiqué, reconoce que el manual es parte del PEI y que la sanción debe ser proporcional, sin discriminar ni ignorar el debido proceso.", "Autonomía escolar real, con límite en los derechos", "Evalúe la proporcionalidad antes de sancionar: edad, contexto y efectos", "Ficha parcial"], ["T-240/18", "m", "Tres funciones del manual", "El manual es contrato de adhesión, reglas mínimas y expresión de los valores de la comunidad.", "Ficha parcial: no abrí el texto completo.", "La Corte describe el manual con tres funciones: contrato de adhesión, reglas mínimas de convivencia y expresión de los valores de la comunidad educativa, siempre bajo las reglas del debido proceso.", "Su facultad para fijar el contenido no es absoluta", "Construya el manual con participación de la comunidad", "Ficha parcial"], ["T-565/13", "a", "Límites del manual", "El manual no puede imponer una apariencia personal.", "Ficha parcial: no abrí el texto completo.", "Según lo que verifiqué, marcó límites a la autonomía del colegio y recordó que el rector debe aplicar el manual respetando el debido proceso.", "El libre desarrollo de la personalidad limita al manual", "Revise normas sobre cabello, apariencia y afecto", "Ficha parcial"], ["T-492/10", "d", "Matrícula y manual", "Aceptar el manual al matricularse es válido, pero toda sanción exige debido proceso.", "Ficha parcial: no abrí el texto completo.", "Reconoce el sometimiento al manual por la matrícula y exige que las sanciones respeten el procedimiento.", "La firma de la matrícula no reemplaza el proceso", "Entregue el manual al matricular y deje constancia", "Ficha parcial"], ["T-091/19", "d", "Sanción sin defensa", "Una sanción sin proceso en el que el estudiante pueda defenderse es inválida.", "Ficha parcial: la leí citada en la T-226/20.", "No pude verificar el fallo exacto.", "Defensa previa a la sanción", "Cite a descargos antes de decidir", "Ficha parcial"], ["T-251/05", "a", "Autonomía de los colegios", "Precisa la autonomía para reglamentar el comportamiento de los estudiantes.", "Ficha parcial: la ubiqué en una revisión sobre manuales de convivencia, sin abrir el texto.", "No pude verificar el fallo exacto.", "Los colegios pueden reglamentar la conducta", "Confirme el alcance en el texto completo", "Ficha parcial"], ["T-618/98", "m", "El manual no está sobre la Constitución", "El manual no prevalece sobre la Constitución y solo se exige si se conoció.", "Ficha parcial: no abrí el texto completo.", "Según lo que verifiqué, el manual debe ser conocido por la comunidad y no puede contradecir derechos fundamentales.", "Publicidad previa del manual|Supremacía constitucional", "Divulgue el manual y sus cambios antes de aplicarlos", "Ficha parcial"], ["T-022/92", "m", "Educación: derecho y deber", "El estudiante tiene derecho a educarse y el deber de cumplir las reglas.", "Ficha parcial: la encontré citada en la jurisprudencia y no pude abrirla. Confírmela antes de citarla.", "No pude verificar el fallo exacto.", "Derecho-deber: derechos y obligaciones recíprocos", "Use esta idea para explicar el manual a las familias", "Ficha parcial"]];
+const li2=t=>t.split('|').map(x=>`<li>${x}</li>`).join('');
+let sok=false;
+function renderSent(){
+  $('#stags').innerHTML=['Todas'].concat(TAGS).map(t=>`<button type="button" class="chip" data-t="${t==='Todas'?'all':t}" aria-pressed="${(t==='Todas'?'all':t)===stg}">${t}${t==='Todas'?' ('+SIDS.length+')':' ('+SIDS.filter(i=>SG[i][0]===t).length+')'}</button>`).join('')+`<button type="button" class="chip" data-t="__ok" aria-pressed="${sok}">✓ Solo leídas en la Corte</button>`;
+  const q=norm(sterm);
+  const list=SIDS.filter(i=>(stg==='all'||SG[i][0]===stg)&&(!sok||SG[i][1])&&(!q||norm(N[i].t+' '+N[i].s+' '+SG[i][0]+' '+sKey(i).lab).includes(q)));
+  $('#scount').textContent=list.length+' de '+SIDS.length+' sentencias, de la más reciente a la más antigua. «Ficha parcial» o «Por verificar»: falta contrastarla con el texto de la Corte.';
+  $('#slist').innerHTML=list.map(id=>{
+    const k=sKey(id),fs=fnsOf(id),cz=casesOf(id),t=N[id].t.split(' · '),x=S2.find(y=>y[0]===k.lab);
+    const title=x?x[2]:(t[1]||''),short=x?x[3]:N[id].s,ok=SG[id][1],badge=ok?'✓ Leída':(x?x[8]:'Por verificar');
+    const hue=(TAGS.indexOf(SG[id][0])*47+150)%360,num=k.lab.split('/')[0];
+    const back=x?`<div class="vd"><b>Veredicto</b>${x[5]}</div><h4>Qué pasó</h4><p>${x[4]}</p><h4>Ideas clave</h4><ul>${li2(x[6])}</ul><h4>Qué hacer en el colegio</h4><ul>${li2(x[7])}</ul>`:`<div class="vd"><b>Veredicto</b>${N[id].s}</div><p class="hint">Aún no tiene ficha de «qué pasó» ni «qué hacer». Se completa cuando la leamos completa.</p>`;
+    return `<div class="flip" tabindex="0" role="button" aria-pressed="false" aria-label="Voltear la tarjeta de ${k.lab}" style="--th:${hue}"><div class="fl">
+    <div class="ff"><div class="sy"><span class="sn">${num}</span><span class="sa">${k.y}</span></div><div style="display:flex;gap:6px;flex-wrap:wrap"><span class="tg">${SG[id][0]}</span><span class="vf${ok?'':' no'}">${badge}</span></div>
+      ${title?`<h3>${title}</h3>`:''}<p class="clamp">${short}</p>
+      <div class="foot">${fs.slice(0,6).map(n=>`<button type="button" class="cl" data-go="${n}">F${n}</button>`).join('')}${cz.map(c=>`<button type="button" class="cl" data-case="${c}">${CZ.CASES[c].n.split(' ')[0]}</button>`).join('')}<span class="tapm">Voltear ↻</span></div></div>
+    <div class="fb"><div class="top"><span class="no">${k.lab}</span><span class="tapm">Volver ↻</span></div>${back}${k.link?`<a class="ext" href="${k.link}" target="_blank" rel="noopener">Texto en la Corte ↗</a>`:''}</div></div></div>`}).join('')||'<div class="empty" style="grid-column:1/-1">Ninguna sentencia coincide.</div>';
+}
+$('#stags').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;if(b.dataset.t==='__ok')sok=!sok;else stg=b.dataset.t;renderSent()});
+$('#sq').addEventListener('input',e=>{sterm=e.target.value.trim();renderSent()});
+const flipT=f=>{const on=f.classList.toggle('on');f.setAttribute('aria-pressed',on)};
+$('#slist').addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g){gotoFn(+g.dataset.go);return}const c=e.target.closest('[data-case]');if(c){gotoCase(c.dataset.case);return}if(e.target.closest('a'))return;const f=e.target.closest('.flip');if(f)flipT(f)});
+$('#slist').addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.classList.contains('flip')){e.preventDefault();flipT(e.target)}});
+document.addEventListener('click',e=>{const q=e.target.closest('[data-sq]');if(q){stg='all';sok=false;sterm=q.dataset.sq.replace('/','/');$('#sq').value=sterm;renderSent();show('sentencias');window.scrollTo({top:0,behavior:'smooth'});return}const v=e.target.closest('[data-view]');if(v){show(v.dataset.view);window.scrollTo({top:0,behavior:'smooth'})}});
+
+
+/* ===== RUTAS ===== */
+const LEYN=[["Constitución Política", "Arts. 13, 15, 16, 20, 29, 44 y 67", "Marco que limita toda decisión del colegio.", "Art. 29: debido proceso en toda actuación disciplinaria|Art. 44: los derechos de los niños prevalecen|Art. 67: la educación es derecho, deber y servicio público|Arts. 13, 15, 16 y 20: igualdad, intimidad, libre desarrollo de la personalidad y libertad de expresión", "Antes de sancionar, verifique que el manual prevea la falta y la sanción|Garantice cargos, pruebas, descargos, decisión motivada y apelación|Proteja la intimidad de menores y docentes en todo registro", "La T-529/24 anuló una sanción por violar libertad de expresión e igualdad."], ["Ley 115 de 1994", "Ley General de Educación", "Da al colegio autonomía para tener PEI y manual, dentro de la ley.", "Art. 73: cada colegio tiene un PEI|Art. 77: autonomía escolar dentro de los lineamientos del Estado|Art. 87: el manual de convivencia es obligatorio y las familias lo aceptan al matricularse|Art. 144-c: el Consejo Directivo adopta el manual", "Construya o reforme el manual con padres, estudiantes y docentes|Apruébelo en Consejo Directivo con acuerdo escrito|Divulgue el texto antes de aplicarlo", "La T-529/24 exige participación de directivos, profesores, estudiantes y padres al adoptar el manual."], ["Decreto 1075 de 2015", "Decreto Único del Sector Educación", "Reúne en un solo texto los decretos de educación.", "Compila el Decreto 1860/94: gobierno escolar y funciones del rector (art. 2.3.3.1.5.8)|Compila el Decreto 1290/09: sistema institucional de evaluación (SIEE)|Compila el Decreto 1965/13 de convivencia|Compila el Decreto 1421/17 de educación inclusiva", "Cite el artículo del Decreto 1075 en actos y resoluciones|Verifique que SIEE y manual no se contradigan|No use la nota de comportamiento como sanción", "Según el Ministerio (citado en T-076/26), el comportamiento no debe ser punitivo ni calificarse con nota numérica."], ["Ley 715 de 2001, art. 10", "Funciones de rectores y directores", "Define qué le corresponde al rector como administrador del colegio.", "Dirige el PEI y preside Consejo Directivo y Académico|Controla el cumplimiento de funciones y reporta novedades a la Secretaría|Administra permisos, evaluación y sanciones del control disciplinario interno|Responde por la calidad del servicio y el Fondo de Servicios Educativos", "Deje por escrito permisos y novedades|Reporte a la Secretaría lo que supere su competencia|Rinda informes de gestión", "Ver pestaña Rector para la lista completa."], ["Ley 1620 de 2013", "Sistema Nacional de Convivencia Escolar", "Crea el sistema para formar en convivencia y prevenir y atender la violencia escolar.", "Comité Escolar de Convivencia, que preside el rector (art. 12)|Ruta de atención con cuatro componentes: promoción, prevención, atención y seguimiento|El manual debe incluir la ruta y los protocolos (art. 21)|Sistema de información unificado de convivencia: los datos médicos y psicológicos son reservados", "Clasifique la situación como Tipo I, II o III y regístrela|Active el protocolo y cite al Comité|Reporte en el sistema de información y haga seguimiento", "La T-529/24 reprochó no activar esta ruta ante una denuncia."], ["Decreto 1965 de 2013", "Reglamenta la Ley 1620", "Dice cómo clasificar las situaciones y qué protocolo seguir.", "Tipo I: conflictos y situaciones esporádicas sin daño al cuerpo o la salud|Tipo II: agresión, acoso o ciberacoso que no son delito y son repetidos o causan daño sin incapacidad|Tipo III: presuntos delitos, incluidos los sexuales|Los protocolos cubren atención en salud, información a los padres, medidas de protección y reporte", "Tipo III: atención inmediata en salud física y mental|Informar de inmediato a los acudientes y a la Policía de Infancia y Adolescencia|Citar al Comité, adoptar medidas de protección y reportar", "La gravedad la define el hecho, no el nombre que le dé el manual."], ["Ley 1098 de 2006", "Código de la Infancia y la Adolescencia", "Pone el interés superior de los niños por encima de otros intereses.", "Arts. 8 y 9: interés superior y prevalencia de sus derechos|Derecho a ser escuchado en toda actuación que los afecte|Art. 18: protección contra el maltrato|Arts. 43 y 44: obligaciones de los establecimientos educativos", "Escuche al estudiante antes de decidir y deje constancia|Justifique por escrito cómo la decisión protege su interés superior|Reporte maltrato o abuso al ICBF o la Comisaría de Familia", "La T-076/26 lo describe como derecho, principio y norma de procedimiento."], ["Ley 1146 de 2007", "Violencia sexual contra niños, niñas y adolescentes", "Obliga a denunciar y a atender integralmente.", "Art. 12: docentes y directivos deben denunciar conductas o indicios de abuso sexual contra menores|Art. 15: el deber se cumple dentro de las 24 horas siguientes|La víctima tiene derecho a atención integral|No se espera a tener pruebas: el colegio no investiga", "Denuncie ante Fiscalía o Policía de Infancia en máximo 24 horas|Reporte a ICBF o Comisaría de Familia|Proteja a la víctima y guarde reserva", "Si el denunciado es el rector, cualquier docente denuncia directamente."], ["Ley 2089 de 2021", "Prohibición del castigo físico", "Prohíbe la violencia como forma de corregir a niños y adolescentes.", "Prohibe el castigo físico, los tratos crueles, humillantes o degradantes y cualquier violencia como corrección|Alcanza a quien cuida a niños, incluidos docentes|Promueve crianza y disciplina positivas", "Detenga la situación y proteja al estudiante|Reporte a la Secretaría y, si hay lesión, a Fiscalía e ICBF|Forme a docentes en disciplina positiva", "Aplica a gritos, humillaciones públicas y castigos físicos."], ["Ley 2564 de 2026", "Violencia digital y salud mental de niños, niñas y adolescentes", "Establece medidas de protección de la salud mental y prevención de la violencia digital en menores.", "Aborda riesgos como grooming, sextorsión y ciberacoso|Modifica la Ley 1616 de 2013 de salud mental|Protege a menores de edad en entornos digitales", "Incluya estas conductas en el manual y en las rutas|Haga talleres de uso seguro de redes|Reporte casos a las autoridades", "No encontré el deber 24/7 de docentes ni los 9 elementos que cita su documento. Lea el texto completo."], ["Ley 1257 de 2008", "Violencia contra la mujer", "Garantiza a las mujeres una vida libre de violencia.", "Aplica en lo público y privado, incluido el ámbito laboral|Reconoce el daño psicológico y el sexual|Establece medidas de protección y atención|Ordena sensibilizar y prevenir", "Si la víctima es una docente, protéjala y no la culpe|Remita a salud mental y SST|Apoye la denuncia penal", "Es la base de la ruta de protección en el caso de deepfakes contra docentes."], ["Código Penal", "Ley 599 de 2000", "Los delitos que más aparecen en casos escolares.", "Arts. 208 a 211: delitos sexuales contra menores y agravante por autoridad sobre la víctima|Arts. 220 y 221: injuria y calumnia|Art. 244: extorsión|Art. 269F: violación de datos personales; Art. 454B: ocultar o destruir pruebas", "Denuncie lo que parezca delito|Conserve la evidencia sin alterarla|No arregle el asunto con la familia", "Verifique la numeración con su asesor jurídico."], ["Ley 1952 de 2019 y Decreto 1278 de 2002", "Régimen disciplinario y estatuto docente", "Regulan cómo se investiga y sanciona a docentes y directivos.", "Los docentes son servidores públicos disciplinables|Las faltas graves pueden llevar a suspensión, destitución e inhabilidad|Investigan la Secretaría de Educación y la Procuraduría|El estatuto aplicable depende de la vinculación del docente", "Informe por escrito a la Secretaría|No investigue ni sancione lo grave por su cuenta|Respete presunción de inocencia y reserva", "Los docentes anteriores a 2002 pueden regirse por otro estatuto."], ["Ley 1581 de 2012", "Protección de datos personales", "Regula el uso de datos personales.", "Los datos de menores exigen respeto del interés superior|Los datos sensibles tienen protección reforzada|La información médica y psicológica es reservada", "No publique nombres ni diagnósticos|Guarde la evidencia en lugar restringido|Comparta solo con quien deba conocer", ""], ["Decreto 1421 de 2017", "Educación inclusiva", "Obliga a los colegios a adaptarse a las necesidades de cada estudiante.", "Ajustes razonables y Diseño Universal para el Aprendizaje|Plan Individual de Ajustes Razonables (PIAR)|Los apoyos no dependen de diagnóstico médico", "Antes de sancionar, revise si el estudiante tiene PIAR|Adapte la respuesta pedagógica|Registre los ajustes", "La T-076/26 declaró vulnerada la adaptabilidad."], ["Ley 2025 de 2020", "Escuelas para padres y madres", "Establece lineamientos para las escuelas de padres.", "Instituciones de preescolar, básica y media deben implementarlas|Involucran a las familias en prevención y formación", "Programe sesiones sobre uso seguro de redes y convivencia|Deje registro de asistencia|Vincule las rutas del manual", ""]];
+let rt='expulsion';
+const RT=[['expulsion','Expulsar o cancelar matrícula'],['atencion','Ruta de atención'],['debido','Debido proceso'],['denuncia','Denuncia y evidencia'],['colegio','Si el agresor es del colegio'],['gestion','Gestión y procesos'],['casos','Por caso'],['dir','Directorio']];
+const PRC=[["Dirección y Planeación", "Dirigir", "Planear", "Liderar el horizonte institucional, formular objetivos estratégicos y organizar las metas anuales en coherencia con el Proyecto Educativo Institucional (PEI)."], ["Coordinación y Programación", "Coordinar", "Programar", "Articular el trabajo de los equipos docentes, estructurar el calendario académico, la asignación de horarios y las actividades curriculares."], ["Administración y Organización", "Administrar", "Organizar", "Gestionar los recursos financieros (Fondo de Servicios Educativos), la infraestructura física, el talento humano y los materiales didácticos."], ["Orientación y Evaluación", "Orientar", "Evaluar", "Guiar los procesos pedagógicos, evaluar de forma anual el desempeño docente y realizar seguimiento sistemático al logro de aprendizajes y metas del PAM."]];
+const CONSQ=[['Consecuencia penal','Fiscalía investiga de oficio. Tener autoridad sobre la víctima agrava el delito. El abuso sexual de menores se denuncia dentro de las 24 horas.'],['Consecuencia disciplinaria','La Secretaría de Educación y la Procuraduría pueden investigar y sancionar. Las faltas graves pueden llegar a la destitución y a la inhabilidad.'],['Medida administrativa','Se aparta al señalado del aula o de sus funciones mientras avanza la investigación. El colegio no investiga ni confronta.'],['Protección de la víctima','ICBF o Comisaría de Familia, atención en salud y continuidad escolar. No se le pide repetir el relato.'],['Deber del rector','Reportar a tiempo. Omitir la denuncia es una falta y puede tener consecuencias penales. Si el denunciado es el rector, cualquier docente denuncia directamente.'],['Lo que no se hace','No interrogar al niño, no confrontar al señalado, no pedir retractación, no arreglar con la familia, no difundir nombres, no borrar nada.']];
+const fbtn=n=>`<button type="button" class="lf" data-go="${n}">F${n} · ${F[n-1].v}</button>`;
+const pathH=steps=>{let n=0;return `<ol class="camino">${steps.map(x=>{const o=typeof x==='string'?{d:x}:x;if(!o.q&&!o.end&&!o.stop)n++;
+  const mark=o.q?'?':o.end?'✓':o.stop?'✕':n;
+  return `<li class="${o.q?'q':o.end?'end':o.stop?'stop':''}"><span class="nd" aria-hidden="true">${mark}</span><div class="cd">${o.t?`<h4>${o.t}</h4>`:''}<p>${o.d}</p>${o.if?`<div class="br">${o.if.map(b=>`<div class="${b[0]}"><b>${b[1]}</b>${b[2]}</div>`).join('')}</div>`:''}${(o.f||o.s||o.b)?`<div class="tags">${o.b?`<span class="lbl">Base</span>${o.b.map(y=>`<span class="tg">${y}</span>`).join('')}`:''}${o.f?`<span class="lbl">Función</span>${o.f.map(fbtn).join('')}`:''}${o.s?`<span class="lbl">Sentencias</span>${o.s.map(y=>`<button type="button" class="sq" data-sq="${y}">${y}</button>`).join('')}`:''}</div>`:''}</div></li>`}).join('')}</ol>`};
+const EXP=[
+ {t:'Revisa que el manual lo permita',d:'La falta y la sanción deben estar escritas en el manual de convivencia y haberse dado a conocer antes. Si la falta o la cancelación de matrícula no están previstas, no se puede aplicar.',b:['Ley 115, art. 87','Manual de convivencia'],s:['T-618/98','T-004/24'],f:[18]},
+ {q:1,t:'¿Los hechos son un presunto delito o la víctima es una menor de edad?',d:'Un hecho de violencia sexual o un presunto delito no se trata solo como falta disciplinaria.',if:[['si','Sí','Activa la ruta de atención Tipo III: salud, aviso a acudientes, denuncia y Comité. No sancionas los efectos del abuso como mala conducta.'],['no','No','Sigue al paso 2. Es una situación de convivencia que se resuelve con el manual.']],s:['T-004/26'],f:[22]},
+ {t:'Protege y atiende primero',d:'Si hay víctima, garantiza su atención y protección. Adopta medidas inmediatas, pero no son la sanción: la sanción solo llega al final del proceso.',b:['Ley 1620','Decreto 1965, arts. 42 a 44'],f:[22,7]},
+ {t:'Abre el proceso de manera formal',d:'Deja un acto escrito de apertura y cita a los padres o acudientes. El Comité no puede sancionar sin que el proceso haya empezado formalmente.',b:['Constitución, art. 29'],s:['T-004/24','T-094/25']},
+ {t:'Formula los cargos por escrito',d:'Di qué hecho se atribuye al estudiante y qué norma del manual se habría incumplido. Sin cargos claros no hay defensa posible.',s:['T-091/19']},
+ {t:'Traslada las pruebas y deja defenderse',d:'Entrega al estudiante y a su acudiente el expediente y las pruebas, también las digitales. Fija un plazo para los descargos (tu manual debe decir cuántos días hábiles) y escúchalo.',b:['Ley 1098, art. 26 (derecho a ser oído)'],s:['T-196/24','T-168/22']},
+ {q:1,t:'¿El estudiante tiene una condición que obliga a ajustar la respuesta?',d:'Revisa si tiene PIAR, una discapacidad, es víctima de acoso o hay un contexto que explique la conducta.',if:[['si','Sí','Primero adapta la respuesta: medidas pedagógicas y ajustes razonables. Una cancelación sin ajustes vulnera derechos.'],['no','No','Continúa con el análisis de proporcionalidad.']],b:['Decreto 1421 de 2017'],s:['T-076/26','T-249/24']},
+ {t:'Aplica el principio de proporcionalidad',d:'Compara la falta con la sanción. Antes de una cancelación hay medidas menores: compromisos, acompañamiento pedagógico, suspensión breve. Considera la edad y el interés superior del menor.',b:['Ley 1098, art. 8'],s:['T-226/20','T-565/13']},
+ {t:'Decide con motivación, por la instancia del manual',d:'La decide quien el manual designe (normalmente el Consejo Directivo para la cancelación de matrícula; verifícalo en tu manual). La resolución explica los hechos, las pruebas, la norma y por qué esa sanción y no otra.',s:['T-076/26','T-004/24'],f:[18]},
+ {t:'Notifica y da el recurso',d:'Notifica la decisión a los acudientes. Deben poder apelar ante una instancia distinta de la que decidió, dentro de un plazo claro.',b:['Constitución, art. 29']},
+ {t:'Garantiza que siga estudiando',d:'Cancelar la matrícula no puede dejar a un menor sin escuela. Coordina con la Secretaría de Educación su cupo en otra institución y registra el cambio en el sistema (SIMAT). No lo mantengas fuera de clases mientras se decide.',b:['Constitución, art. 67'],s:['T-196/24','T-004/26'],f:[22]},
+ {end:1,t:'Cierra con seguimiento y reserva',d:'Archiva el expediente completo, protege los datos del estudiante y haz seguimiento. Reporta al sistema de información de convivencia cuando corresponda.',b:['Ley 1581 de 2012'],f:[18]}
+];
+const AVISOS=[['No cancelar por denunciar','Quien denuncia al colegio no se sanciona: se activa el Comité y la ruta (T-529/24).'],['No castigar con la nota','Bajar la nota de comportamiento como castigo también es una sanción y exige debido proceso (T-076/26).'],['No dejarlo sin escuela','Una sanción no puede dejar a un menor sin escolarización (T-196/24, T-004/26).']];
+
+function renderRutas(){
+  $('#rchips').innerHTML=RT.map(r=>`<button type="button" class="chip" data-r="${r[0]}" aria-pressed="${r[0]===rt}">${r[1]}</button>`).join('');
+  const b=$('#rbody');
+  if(rt==='expulsion'){
+    b.innerHTML=`<p class="hint">Camino completo para sancionar con cancelación de matrícula o desescolarización. Los plazos y la instancia que decide los fija tu manual: ajústalos.</p>${pathH(EXP)}<div class="avisos">${AVISOS.map(a=>`<div style="border-left:5px solid var(--bad)"><b>${a[0]}</b>${a[1]}</div>`).join('')}</div>`;
+  }else if(rt==='atencion'){
+    const T=[['Tipo I','Conflictos y situaciones esporádicas que no dejan daño al cuerpo ni a la salud.','Decreto 1965, arts. 40 y 42',['Mediar de manera pedagógica entre las partes.','Fijar una solución imparcial y equitativa, y dejar constancia.','Hacer seguimiento y reportar al Comité si el caso se repite.']],
+     ['Tipo II','Agresión, acoso o ciberacoso que no son delito y son repetidos o causan daño sin incapacidad.','Decreto 1965, art. 43',['Atender en salud física y mental cuando hay daño.','Proteger a las partes y avisar a los padres o acudientes.','Adoptar acciones restaurativas, con acta del Comité.','Reportar al sistema de información y hacer seguimiento.']],
+     ['Tipo III','Presuntos delitos, incluidos los de violencia sexual.','Decreto 1965, art. 44; Ley 1146 de 2007',['Atender de inmediato en salud física y mental.','Informar a los padres o acudientes, salvo que alguno sea sospechoso.','Denunciar ante la Policía de Infancia y Adolescencia o la Fiscalía; en abuso sexual, dentro de las 24 horas.','Citar al Comité, adoptar medidas internas de protección y reportar.','Conservar la evidencia sin alterarla y hacer seguimiento.']]];
+    b.innerHTML=`<div class="rmap"><div><b>Promoción</b><p>Políticas institucionales y el manual de convivencia.</p></div><div><b>Prevención</b><p>Diagnóstico de riesgos, formación y escuelas de padres.</p></div><div><b>Atención</b><p>Los protocolos por tipo de situación, abajo.</p></div><div><b>Seguimiento</b><p>Reporte al sistema de información y revisión del Comité.</p></div></div>
+    <p class="hint" style="margin-top:10px">Los cuatro componentes de la ruta vienen de la Ley 1620 de 2013. El Comité Escolar de Convivencia lo preside el rector y sesiona al menos cada dos meses.</p>
+    ${T.map(t=>`<article class="tipo"><header><h3>${t[0]}</h3><span>${t[1]}</span><span class="tm">${t[2]}</span></header><div class="in">${pathH(t[3])}</div></article>`).join('')}
+    <div class="rr" style="margin-top:14px"><span class="lbl">Norma y función</span>${fbtn(22)}${fbtn(7)}<button type="button" class="lf" data-rt="casos">Ver rutas por caso →</button></div>`;
+  }else if(rt==='debido'){
+    const p=P[18];
+    b.innerHTML=`<article class="tipo"><header><h3>${p.t}</h3><span class="tm">Antes de toda sanción</span></header><div class="in">${pathH(p.steps)}<p class="hint">Ajusta los plazos a lo que diga tu manual: de ello depende la validez de la sanción (T-004/24, T-196/24, T-076/26).</p><div class="rr"><span class="lbl">Función</span>${fbtn(18)}${fbtn(19)}</div></div></article>`;
+  }else if(rt==='denuncia'){
+    b.innerHTML=`<article class="tipo"><header><h3>Denunciar sin esperar pruebas</h3><span class="tm">24 horas</span></header><div class="in">${pathH(['Proteger a la víctima y garantizar atención en salud.','Escucharla una sola vez, sin interrogar.','Informar a los acudientes, salvo que alguno sea sospechoso.',{d:'Denunciar ante la Fiscalía o la Policía de Infancia y Adolescencia en máximo 24 horas (Ley 1146 de 2007).',b:['Ley 1146, arts. 12 y 15']},{end:1,d:'Reportar al ICBF o a la Comisaría de Familia y al sistema de información de convivencia.'}])}<div class="rr"><span class="lbl">Función</span>${fbtn(22)}${fbtn(7)}</div></div></article><article class="tipo"><header><h3>Fijar la evidencia digital</h3><span class="tm">Antes de pedir el retiro</span></header><div class="in">${pathH(CZ.EV)}</div></article>`;
+  }else if(rt==='colegio'){
+    b.innerHTML=`<p class="hint">Cuando el presunto agresor es un docente, un directivo o el propio rector, la ruta cambia: el colegio no investiga.</p><div class="mxg">${CONSQ.map((c,i)=>`<article class="mq" style="--gh:${[160,212,32,285,330,0][i]}"><h3>${c[0]}</h3><p style="margin:0;font-size:14.5px">${c[1]}</p></article>`).join('')}</div><div class="rr" style="margin-top:14px"><span class="lbl">Función</span>${fbtn(18)}<button type="button" class="lf" data-rt="debido">Debido proceso →</button></div>`;
+  }else if(rt==='dir'){
+    b.innerHTML=`<div class="mxg">${CZ.DIR.map(d=>`<article class="mq" style="--gh:200"><span class="act">${d[1]}</span><h3>${d[0]}</h3><p class="hint">${d[2]}</p></article>`).join('')}</div>`;
+  }else if(rt==='gestion'){
+    b.innerHTML=`<div class="mxg" style="margin-bottom:14px">${PRC.map((q,i)=>`<article class="mq" style="--gh:${[160,212,32,285][i]}"><span class="act">${q[1]} · ${q[2]}</span><h3>${q[0]}</h3><p style="margin:0;font-size:14.5px">${q[3]}</p></article>`).join('')}</div><div class="rgrid">${[1,6,10,13,14,17,22].filter(n=>n!==22).map(n=>{const p=P[n];return `<article class="sc"><span class="lbl">Función ${n}</span><h3>${p.t}</h3>${pathH(p.steps)}<div class="foot">${fbtn(n)}</div></article>`}).join('')}</div>`;
+  }else{
+    b.innerHTML=`<div class="rgrid">${Object.entries(CZ.CASES).map(([k,c])=>`<article class="sc"><span class="lbl">${c.g}</span><h3>${c.n}</h3><div class="rcase">${c.F.map(f=>`<span class="tm">${f[0]} · ${f[1]}</span>`).join('')}</div><div class="foot"><button type="button" class="cl" data-case="${k}">Abrir ruta completa</button></div></article>`).join('')}</div>`;
+  }
+}
+$('#rchips').addEventListener('click',e=>{const x=e.target.closest('.chip');if(x){rt=x.dataset.r;renderRutas()}});
+$('#rbody').addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g){gotoFn(+g.dataset.go);return}const c=e.target.closest('[data-case]');if(c){gotoCase(c.dataset.case);return}const r=e.target.closest('[data-rt]');if(r){rt=r.dataset.rt;renderRutas()}});
+document.addEventListener('click',e=>{const r=e.target.closest('#v-competencias [data-rt],#fcard [data-rt]');if(r){rt=r.dataset.rt;renderRutas();show('rutas');window.scrollTo({top:0,behavior:'smooth'})}});
+
+/* ===== NORMATIVA ===== */
+const NMAP=[[/^Constituci/,['const']],[/^Ley 115/,['l115']],[/^Decreto 1075/,['d1075']],[/^Ley 715/,['l715']],[/^Ley 1620/,['l1620']],[/^Decreto 1965/,['d1965']],[/^Ley 1098/,['l1098']],[/^Ley 1146/,['l1146']],[/^Ley 2089/,['l2089']],[/^Ley 1257/,['l1257']],[/^C[oó]digo Penal/,['cp','cpp']],[/^Ley 1952/,['l1952','d1278']],[/^Ley 1581/,['l1581']],[/^Decreto 1421/,['d1421']],[/^Ley 2025/,['l2025']]];
+const MX={"QUIEN": [["Denunciar abuso sexual contra un estudiante", "Rector y cualquier docente, dentro de las 24 horas", "Ley 1146 de 2007 arts. 12 y 15"], ["Apartar del aula a un docente señalado de abuso", "Secretaría de Educación o nominador, por medida cautelar; el rector informa de inmediato", "Práctica de las Secretarías · confirme con la de Boyacá"], ["Adoptar o reformar el manual de convivencia", "Consejo Directivo, con la comunidad; el rector lidera la revisión", "Ley 115 art. 144-c · Ley 1620 art. 18"], ["Presidir el Comité Escolar de Convivencia", "Rector", "Ley 1620 art. 12"], ["Sancionar a un estudiante, incluida la cancelación de matrícula", "La instancia que fije el manual, con debido proceso completo y apelación ante otra instancia", "T-004/24 · T-196/24 · T-076/26"], ["Reportar situaciones Tipo III", "Rector o Comité, de inmediato a la Policía de Infancia y a las autoridades competentes", "Decreto 1965/13 · Ley 1098/06"], ["Sancionar al personal a su cargo", "Rector, dentro del control interno disciplinario; lo grave se remite a la Secretaría", "Ley 715 art. 10.11"], ["Conceder permisos y gestionar novedades", "Rector", "Ley 715 art. 10.6–10.7 · Concepto MEN 294257/2025"], ["Ordenar el gasto del Fondo de Servicios Educativos", "Rector, con el presupuesto aprobado por el Consejo Directivo", "Ley 715/01 · Decreto 4791/08"], ["Denunciar delitos de los que tenga conocimiento", "Rector y cualquier servidor público", "Código de Procedimiento Penal art. 67"], ["Representar al colegio ante Fiscalía, Policía y Secretaría", "Rector", "Ley 715 art. 10.3"]], "PUE": ["Dirigir la construcción del PEI y proponer el manual (lo adopta el Consejo Directivo)", "Definir faltas, sanciones y procedimientos en el manual, si son proporcionales y se conocen de antemano", "Adoptar medidas inmediatas de protección y de conservación de la prueba", "Organizar horarios, asignaciones y funciones del personal", "Priorizar el gasto del Fondo de Servicios Educativos según el presupuesto aprobado"], "NOP": ["Sancionar sin cargos, sin traslado de pruebas o sin oportunidad de defensa (T-004/24, T-091/19)", "Aplicar una sanción que el manual no prevé o que no está motivada (T-076/26)", "Exigir un manual que la comunidad no conoció a tiempo (T-618/98)", "Imponer reglas que discriminen o invadan el libre desarrollo de la personalidad (T-565/13, T-226/20)", "Dejar a un menor sin escolarización por una sanción (T-196/24, T-004/26)", "Borrar o alterar pruebas, o presentar a alguien como culpable antes de un fallo", "Decidir lo que la ley asigna al Consejo Directivo, al Comité o a la Secretaría"], "L18": ["Liderar el Comité Escolar de Convivencia", "Incorporar la convivencia y los derechos humanos en la planeación institucional", "Liderar la revisión y el ajuste del manual de convivencia", "Reportar al comité municipal los casos de acoso y violencia escolar", "Garantizar la ruta de atención integral y el reporte al sistema de información"]};
+const nYear=t=>{const m=t.match(/de (\d{4})/);return m?+m[1]:(/^Constituci/.test(t)?1991:0)};
+const GQ={ley:['Constitución y leyes',160],dec:['Decretos',212],gui:['Guías y resoluciones',32],sis:['Sistemas y protocolos',285]};
+const grpOf=id=>{const n=N[id];if(n.k==='res')return 'gui';if(n.k==='proto')return 'sis';return /^Decreto/.test(n.t)?'dec':'ley'};
+const posterOf=id=>{const m=NMAP.find(x=>x[1][0]===id);return m?(LEYN.find(l=>m[0].test(l[0]))||null):null};
+function normEntries(){
+  const out=Object.keys(N).filter(id=>N[id].k!=='sent').map(id=>({id,g:grpOf(id),t:N[id].t,a:N[id].a,s:N[id].s,u:N[id].u,po:posterOf(id)}));
+  LEYN.filter(l=>!NMAP.some(m=>m[0].test(l[0]))).forEach(l=>out.push({id:null,g:'ley',t:l[0]+' · '+l[1],a:'',s:l[2],po:l,un:true}));
+  return out.sort((x,y)=>nYear(y.t)-nYear(x.t));
+}
+const ACT=[[/^Rector/,'Rector',160],[/Consejo Directivo/,'Consejo Directivo',212],[/Secretar/,'Secretaría',32],[/Comit/,'Comité',285],[/instancia/i,'Instancia del manual',330]];
+const actor=t=>{const a=ACT.find(x=>x[0].test(t));return a?[a[1],a[2]]:['Autoridad',200]};
+let ng='all',nterm='',nsel=null,nt='dice';
+const NGS=[['all','Todas'],['ley','Constitución y leyes'],['dec','Decretos'],['gui','Guías y resoluciones'],['sis','Sistemas y protocolos'],['mx','Matriz: quién decide']];
+function useRows(id){return Object.entries(L).flatMap(([n,a])=>a.filter(x=>x[0]===id).map(x=>[+n,x[1]]))}
+function renderNorm(){
+  const ents=normEntries(),q=norm(nterm);
+  $('#nchips').innerHTML=NGS.map(g=>`<button type="button" class="chip" data-g="${g[0]}" aria-pressed="${g[0]===ng}">${g[1]}${g[0]==='mx'?'':' ('+(g[0]==='all'?ents.length:ents.filter(e=>e.g===g[0]).length)+')'}</button>`).join('');
+  const box=$('#nlist');
+  if(ng==='mx'&&!q){
+    box.innerHTML=`<p class="hint">Quién decide cada cosa en el colegio y con qué fundamento. Tomado de tu panel de Convivencia Digital: confirma cada fundamento con la norma antes de citarlo.</p>
+    <div class="mxg">${MX.QUIEN.map(r=>{const a=actor(r[1]);return `<article class="mq" style="--gh:${a[1]}"><span class="act">${a[0]}</span><h3>${r[0]}</h3><p style="margin:0;font-size:14.5px">${r[1]}</p><p class="hint">${r[2]}</p></article>`}).join('')}</div>
+    <div class="yn"><article><h3>Lo que sí puede el rector</h3><ul>${MX.PUE.map(x=>`<li><span>${x}</span></li>`).join('')}</ul></article><article class="no"><h3>Lo que no puede</h3><ul>${MX.NOP.map(x=>`<li><span>${x}</span></li>`).join('')}</ul></article><article class="lg"><h3>Responsabilidades en convivencia</h3><p class="hint" style="margin:0">Ley 1620 de 2013, art. 18</p><ul>${MX.L18.map(x=>`<li><span>${x}</span></li>`).join('')}</ul></article></div>`;
+    return;
+  }
+  const list=ents.filter(e=>q?norm(e.t+' '+e.a+' '+e.s+(e.po?e.po.join(' '):'')).includes(q):(ng==='all'||e.g===ng));
+  if(!list.length){box.innerHTML='<div class="empty">Ninguna norma coincide.</div>';return}
+  const key=e=>e.id||'_'+e.t;
+  let cur=list.find(e=>key(e)===nsel)||list[0];nsel=key(cur);
+  const t=cur.t.split(' · '),fs=cur.id?useRows(cur.id):[],cz=cur.id?casesOf(cur.id):[],po=cur.po;
+  const li=x=>x?x.split('|').map(y=>`<li>${y}</li>`).join(''):'';
+  let body='';
+  if(nt==='dice'){
+    body=`<p><b>${po?po[2]:cur.s}</b></p>${po&&cur.s&&cur.id?`<p>${cur.s}</p>`:''}${cur.a&&t[1]?`<div><h4>Artículos y alcance en este panel</h4><p>${cur.a}</p></div>`:''}${po?`<div><h4>Puntos clave</h4><ul>${li(po[3])}</ul></div>`:''}${po&&po[5]?`<p class="note">${po[5]}</p>`:''}${cur.u?`<a class="ext" href="${cur.u}" target="_blank" rel="noopener">Ver el documento oficial ↗</a>`:''}${cur.un?'<p class="note">La trae tu HTML de Convivencia Digital. No la pude contrastar con su texto oficial: léela completa antes de citarla.</p>':''}`;
+  }else if(nt==='actua'){
+    body=po?`<div><h4>Cómo se actúa</h4><ol>${li(po[4])}</ol></div>`:'<p class="hint">Esta norma no trae pasos propios. Mira «Dónde se usa» para ver cómo se aplica en cada función.</p>';
+  }else{
+    body=`${fs.length?`<div><h4>Funciones donde se aplica</h4><div class="nbox" style="gap:8px">${fs.map(r=>`<div class="use"><button type="button" class="cl" data-go="${r[0]}">F${r[0]}</button><span><b>${F[r[0]-1].v}.</b> ${r[1]}</span></div>`).join('')}</div></div>`:'<p class="hint">Aún no está asignada a una función.</p>'}${cz.length?`<div><h4>Casos</h4><div class="rr">${cz.map(c=>`<button type="button" class="cl" data-case="${c}">${CZ.CASES[c].n}</button>`).join('')}</div></div>`:''}`;
+  }
+  box.innerHTML=`<div class="nv"><div class="nl" role="list">${list.map(e=>{const tt=e.t.split(' · ');return `<button type="button" class="ni" role="listitem" style="--gh:${GQ[e.g][1]}" data-i="${key(e)}" aria-current="${key(e)===nsel}"><b>${tt[0]}</b><span>${tt[1]||e.a||''}</span></button>`}).join('')}</div>
+  <article class="ndet" style="--gh:${GQ[cur.g][1]}"><div class="nband"><span class="bd">${GQ[cur.g][0]}${cur.un?' · por verificar':''}</span><h3>${t[0]}</h3><p>${t[1]||cur.a||''}</p></div>
+  <div class="seg" role="tablist">${[['dice','Qué dice'],['actua','Cómo se actúa'],['usa','Dónde se usa'+(fs.length?' ('+fs.length+')':'')]].map(x=>`<button class="sg" role="tab" data-nt="${x[0]}" aria-selected="${nt===x[0]}">${x[1]}</button>`).join('')}</div>
+  <div class="nbody">${body}</div></article></div>`;
+}
+$('#nchips').addEventListener('click',e=>{const b=e.target.closest('.chip');if(b){ng=b.dataset.g;nterm='';$('#nq').value='';nsel=null;renderNorm()}});
+$('#nlist').addEventListener('click',e=>{const i=e.target.closest('[data-i]');if(i){nsel=i.dataset.i;nt='dice';renderNorm();return}const t=e.target.closest('[data-nt]');if(t){nt=t.dataset.nt;renderNorm();return}const g=e.target.closest('[data-go]');if(g){gotoFn(+g.dataset.go);return}const c=e.target.closest('[data-case]');if(c)gotoCase(c.dataset.case)});
+$('#nq').addEventListener('input',e=>{nterm=e.target.value.trim();nsel=null;renderNorm()});
+
+/* competencias: base normativa y funciones */
+const C={
+ dir:{n:['l115','d1860','l715','g34','s646'],a:'dir'},
+ aca:{n:['l115','d1860','d1290','d1421','s389'],a:'aca'},
+ adm:{n:['fse','l715','d4807','l80','d3782','d277','ntc'],a:'adm'},
+ com:{n:['l1620','l1098','d1286','c866','s437','s1228'],a:'com'},
+ lid:{n:['d3782','g31','res3842','d1278'],f:[1,4,6,25]},
+ cor:{n:['d3782','g31','l1712','l1581'],f:[14,19,20]},
+ equ:{n:['d3782','g31','l1620','s437'],f:[2,4,18,22]},
+ soc:{n:['d3782','const','l1098','l1620'],f:[3,21,22,23]},
+ ini:{n:['d3782','g34','l715'],f:[6,7,8,13]}
+};
+function renderLegal(){
+  document.querySelectorAll('details.d[data-c]').forEach(d=>{
+    const k=d.dataset.c,c=C[k],fl=c.a?F.filter(x=>x.a===c.a).map(x=>x.n):c.f;
+    const box=document.createElement('div');box.className='legal';
+    box.innerHTML=`<span class="lbl">Se explica desde</span>
+      <div class="lchips">${c.n.map(id=>`<button type="button" class="lc${rep[id]?' rep':''}"${rep[id]?` style="--h:${rep[id].h}"`:''} data-n="${id}" aria-expanded="false">${short(id)}</button>`).join('')}</div>
+      <div class="where" hidden></div>
+      <span class="lbl" style="margin-top:6px">Funciones donde se aplica${c.a?'':' (relación sugerida)'}</span>
+      <div class="lchips">${fl.map(n=>`<button type="button" class="lf" data-go="${n}">F${n} · ${F[n-1].v}</button>`).join('')}</div>`;
+    d.querySelector('.in').appendChild(box);
+    const wh=box.querySelector('.where');
+    box.addEventListener('click',e=>{
+      const g=e.target.closest('[data-go]');if(g){gotoFn(+g.dataset.go);return}
+      const b=e.target.closest('.lc');if(!b)return;
+      const open=b.getAttribute('aria-expanded')==='true';
+      box.querySelectorAll('.lc').forEach(x=>x.setAttribute('aria-expanded','false'));
+      if(open){wh.hidden=true;return}
+      b.setAttribute('aria-expanded','true');
+      const id=b.dataset.n,fs=fnsOf(id);
+      wh.innerHTML=`<b>${N[id].t}</b><span>${N[id].a}</span><span class="lbl">Aparece en estas funciones</span><div class="lchips">${fs.map(n=>`<button type="button" class="lf" data-go="${n}">F${n} · ${F[n-1].v}</button>`).join('')}</div>`;
+      wh.hidden=false;
+    });
+  });
+}
+addEventListener('keydown',e=>{
+  if(e.target.matches('input'))return;
+  if(e.key==='Escape'&&mobile())toggleSide(false);
+  if($('#v-funciones').hidden)return;
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'){e.preventDefault();go(1)}
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault();go(-1)}
+});
+$('#resetBtn').onclick=()=>{if(!done.size)return;done.clear();save();prog();render();toast('Progreso reiniciado')};
+
+renderCases();renderSent();renderRutas();renderNorm();prog();render();renderLegal();show(location.hash.slice(1)||'competencias');
+</script>
+<script type="module" src="/src/entry.js"></script>
+</body></html>
