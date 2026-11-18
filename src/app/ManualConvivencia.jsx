@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { MANUAL_CONTENT_VERSION, MANUAL_STYLES, STORAGE_KEY, TABS, TIPO_META } from "../features/manual/config.js";
 import { loadManualData, saveManualData } from "../features/manual/storage.js";
-import { NORMAS_BASE, NORMAS_VERSION, RUTA_DEBIDO_PROCESO } from "../features/manual/normativa.js";
+import { GUIAS_ESTUDIO, NORMAS_BASE, NORMAS_VERSION, RUTA_DEBIDO_PROCESO } from "../features/manual/normativa.js";
 
 const defaultData = {
 
@@ -727,6 +727,91 @@ function Badge({ tipo }) {
   return <span style={{ fontSize: 11, fontWeight: 700, padding: "2px 8px", borderRadius: 6, background: m.bg, color: m.color, border: `1px solid ${m.border}` }}>{m.label}</span>;
 }
 
+function GuiaEstudio({ norma }) {
+  const guia = GUIAS_ESTUDIO[norma.id];
+  const preguntas = guia?.preguntas || [
+    { pregunta: "¿A quién se aplica esta norma?", respuesta: "Ubica el ámbito de aplicación en el texto oficial y anota quiénes son sus destinatarios." },
+    { pregunta: "¿Qué derechos, deberes o procedimientos establece?", respuesta: "Revisa los artículos pertinentes y distingue lo que ordena la norma de las orientaciones explicativas." },
+    { pregunta: "¿Sigue vigente y ha sido modificada?", respuesta: "Comprueba las notas de vigencia, modificación y derogatoria en la fuente oficial antes de usarla." },
+  ];
+
+  return (
+    <div style={{ background: "#f8fafc", border: "1px solid #dbe3ec", borderRadius: 9, padding: 14, marginTop: 10 }}>
+      <p style={{ color: "#334155", fontSize: 12, lineHeight: 1.6, margin: "0 0 10px" }}>
+        {guia
+          ? guia.enfoque
+          : "Ruta general de lectura: el resumen analítico de esta referencia aún no está desarrollado. Usa la fuente oficial para estudiar su texto completo; no se presenta la ficha breve como sustituto de la norma."}
+      </p>
+      {guia ? (
+        <>
+          <strong style={{ color: "#1e3a5f", fontSize: 12 }}>Resumen analítico del articulado</strong>
+          <p style={{ color: "#64748b", fontSize: 11, lineHeight: 1.5, margin: "3px 0 8px" }}>
+            Los artículos se agrupan por capítulos o temas para facilitar el estudio; el enlace oficial conserva el texto completo.
+          </p>
+          <ol style={{ margin: "0 0 12px", paddingLeft: 21 }}>
+            {guia.bloques.map(bloque => (
+              <li key={bloque.titulo} style={{ color: "#334155", fontSize: 12, lineHeight: 1.6, marginBottom: 7 }}>
+                <strong>{bloque.titulo}.</strong> {bloque.texto}
+              </li>
+            ))}
+          </ol>
+          {guia.uso && (
+            <section style={{ borderTop: "1px solid #e2e8f0", paddingTop: 8, marginBottom: 9 }}>
+              <strong style={{ color: "#1e3a5f", fontSize: 12 }}>Dónde se usa</strong>
+              <p style={{ color: "#475569", fontSize: 12, lineHeight: 1.6, margin: "4px 0 0" }}>{guia.uso}</p>
+            </section>
+          )}
+          {guia.actuar?.length > 0 && (
+            <section style={{ borderTop: "1px solid #e2e8f0", paddingTop: 8, marginBottom: 9 }}>
+              <strong style={{ color: "#1e3a5f", fontSize: 12 }}>Cómo actuar</strong>
+              <ol style={{ color: "#475569", fontSize: 12, lineHeight: 1.6, margin: "4px 0 0", paddingLeft: 19 }}>
+                {guia.actuar.map(paso => <li key={paso}>{paso}</li>)}
+              </ol>
+            </section>
+          )}
+          {guia.prioritario?.length > 0 && (
+            <section style={{ borderTop: "1px solid #e2e8f0", paddingTop: 8, marginBottom: 9 }}>
+              <strong style={{ color: "#1e3a5f", fontSize: 12 }}>Lo más importante</strong>
+              <ul style={{ color: "#475569", fontSize: 12, lineHeight: 1.6, margin: "4px 0 0", paddingLeft: 19 }}>
+                {guia.prioritario.map(item => <li key={item}>{item}</li>)}
+              </ul>
+            </section>
+          )}
+          {guia.complementario?.length > 0 && (
+            <section style={{ borderTop: "1px solid #e2e8f0", paddingTop: 8, marginBottom: 9 }}>
+              <strong style={{ color: "#1e3a5f", fontSize: 12 }}>Otros aspectos, programas y límites</strong>
+              <ul style={{ color: "#475569", fontSize: 12, lineHeight: 1.6, margin: "4px 0 0", paddingLeft: 19 }}>
+                {guia.complementario.map(item => <li key={item}>{item}</li>)}
+              </ul>
+            </section>
+          )}
+        </>
+      ) : (
+        <p style={{ color: "#475569", fontSize: 12, lineHeight: 1.6, margin: "0 0 12px" }}>
+          Para estudiarla, identifica su objeto, ámbito de aplicación, artículos vigentes, autoridades responsables, cambios posteriores y relación con el Manual de Convivencia.
+        </p>
+      )}
+      <strong style={{ color: "#1e3a5f", fontSize: 12 }}>Comprueba lo aprendido</strong>
+      <div style={{ marginTop: 5 }}>
+        {preguntas.map(item => (
+          <details key={item.pregunta} style={{ borderTop: "1px solid #e2e8f0", padding: "7px 0" }}>
+            <summary style={{ color: "#334155", fontSize: 12, fontWeight: 700, cursor: "pointer" }}>{item.pregunta}</summary>
+            <p style={{ color: "#475569", fontSize: 12, lineHeight: 1.6, margin: "5px 0 0" }}>{item.respuesta}</p>
+          </details>
+        ))}
+      </div>
+      {norma.url && (
+        <a href={norma.url} target="_blank" rel="noopener noreferrer"
+          style={{ display: "inline-block", color: "#1d4ed8", fontSize: 12, fontWeight: 700, marginTop: 8, textDecoration: "underline" }}>
+          {norma.url === "https://www.funcionpublica.gov.co/eva/gestornormativo/"
+            ? "Abrir el Gestor Normativo para localizar el texto"
+            : "Abrir el texto o fuente oficial"}
+        </a>
+      )}
+    </div>
+  );
+}
+
 function Modal({ title, onClose, children, wide = false }) {
   return (
     <div onClick={e => e.target === e.currentTarget && onClose()}
@@ -780,6 +865,7 @@ function ManualConvivencia() {
   const [expanded, setExpanded] = useState(null);
   const [normaQuery, setNormaQuery] = useState("");
   const [normaSeccion, setNormaSeccion] = useState("leyes");
+  const [normaAnio, setNormaAnio] = useState(null);
   const [pasoDebidoProceso, setPasoDebidoProceso] = useState(0);
 
   useEffect(() => saveManualData(STORAGE_KEY, data), [data]);
@@ -811,7 +897,7 @@ function ManualConvivencia() {
     const q = search.toLowerCase();
     return !q || d.titulo.toLowerCase().includes(q) || d.accion.toLowerCase().includes(q);
   });
-  const normasFiltradas = [...(data.normas || [])]
+  const normasPorBusqueda = [...(data.normas || [])]
     .map(norma => {
       const year = Number(norma.year) || Number((norma.nombre || "").match(/\b(?:19|20)\d{2}\b/)?.[0]) || 0;
       const tipo = norma.tipo || (/sentencia/i.test(norma.nombre || "")
@@ -834,9 +920,11 @@ function ManualConvivencia() {
       return !query || `${norma.nombre} ${norma.descripcion}`.toLocaleLowerCase().includes(query);
     })
     .sort((a, b) => b.year - a.year || (a.nombre || "").localeCompare(b.nombre || "", "es"));
-  const normasLegales = normasFiltradas.filter(norma => norma.tipo !== "Sentencia");
-  const sentenciasFiltradas = normasFiltradas.filter(norma => norma.tipo === "Sentencia");
-  const referenciasVisibles = normaSeccion === "sentencias" ? sentenciasFiltradas : normasLegales;
+  const normasLegales = normasPorBusqueda.filter(norma => norma.tipo !== "Sentencia");
+  const sentenciasFiltradas = normasPorBusqueda.filter(norma => norma.tipo === "Sentencia");
+  const referenciasSeccion = normaSeccion === "sentencias" ? sentenciasFiltradas : normasLegales;
+  const aniosDisponibles = [...new Set(referenciasSeccion.map(norma => norma.year).filter(Boolean))].sort((a, b) => b - a);
+  const referenciasVisibles = referenciasSeccion.filter(norma => normaAnio === null || norma.year === normaAnio);
 
   return (
     <div style={{ minHeight: "100vh", background: "#f8fafc", fontFamily: "'Inter', system-ui, sans-serif" }}>
@@ -1313,6 +1401,18 @@ function ManualConvivencia() {
                 <input id="normativa-busqueda" style={S.input} value={normaQuery} onChange={event => setNormaQuery(event.target.value)} placeholder="Ej.: convivencia, educación inclusiva, T-240..." />
               </div>
             </div>
+            <div role="group" aria-label="Filtrar normativa por año" style={{ display: "flex", gap: 7, flexWrap: "wrap", alignItems: "center", marginBottom: 14 }}>
+              <span style={{ color: "#475569", fontSize: 12, fontWeight: 700, marginRight: 3 }}>Año:</span>
+              {[null, ...aniosDisponibles].map(year => {
+                const active = normaAnio === year;
+                return (
+                  <button key={year || "todos"} type="button" aria-pressed={active} onClick={() => setNormaAnio(year)}
+                    style={{ border: `1px solid ${active ? "#1e3a5f" : "#cbd5e1"}`, borderRadius: 999, background: active ? "#1e3a5f" : "#fff", color: active ? "#fff" : "#334155", padding: "6px 12px", fontSize: 12, fontWeight: active ? 800 : 600, cursor: "pointer" }}>
+                    {year || "Todos"}
+                  </button>
+                );
+              })}
+            </div>
             <div role="group" aria-label="Sección de normativa" style={{ display: "flex", gap: 8, flexWrap: "wrap", borderBottom: "1px solid #cbd5e1", marginBottom: 14 }}>
               {[
                 { id: "leyes", label: `Leyes y normas (${normasLegales.length})` },
@@ -1320,7 +1420,7 @@ function ManualConvivencia() {
               ].map(section => {
                 const active = normaSeccion === section.id;
                 return (
-                  <button key={section.id} type="button" aria-pressed={active} onClick={() => setNormaSeccion(section.id)}
+                  <button key={section.id} type="button" aria-pressed={active} onClick={() => { setNormaSeccion(section.id); setNormaAnio(null); }}
                     style={{ border: 0, borderBottom: `3px solid ${active ? "#1e3a5f" : "transparent"}`, borderRadius: "8px 8px 0 0", background: active ? "#eff6ff" : "transparent", color: active ? "#1e3a5f" : "#475569", padding: "10px 15px", fontSize: 13, fontWeight: active ? 800 : 600, cursor: "pointer" }}>
                     {section.label}
                   </button>
@@ -1363,6 +1463,10 @@ function ManualConvivencia() {
                             <button type="button" style={{ ...S.btnIcon, padding: "2px 7px", fontSize: 11 }} onClick={() => { setForm({ ...norma }); setModal("norma"); }}>Editar</button>
                             <button type="button" style={{ ...S.btnDanger, padding: "2px 7px", fontSize: 11 }} onClick={() => listDel("normas", norma.id)}>Eliminar</button>
                           </div>
+                          <details style={{ marginTop: 8 }}>
+                            <summary style={{ color: "#0f766e", fontSize: 12, fontWeight: 700, cursor: "pointer" }}>Guía analítica: artículos y aplicación</summary>
+                            <GuiaEstudio norma={norma} />
+                          </details>
                         </div>
                       </li>
                   ))}
